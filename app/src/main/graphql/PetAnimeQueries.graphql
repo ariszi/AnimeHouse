@@ -1,0 +1,37 @@
+query animeList (
+    $id: Int
+    $page: Int
+    $perPage: Int
+    $search: String
+    $genre: String
+    $status: MediaStatus
+) {
+    Page(page: $page, perPage: $perPage) {
+        pageInfo {
+            total
+            currentPage
+            lastPage
+            hasNextPage
+            perPage
+        }
+        media(
+            id: $id
+            search: $search
+            genre: $genre
+            status: $status
+            type: ANIME
+        ) {
+
+            id
+            type
+            title {
+                romaji
+                native
+            }
+            genres
+            status
+            description
+            episodes
+        }
+    }
+}
