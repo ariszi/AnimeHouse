@@ -1,4 +1,4 @@
-query animeList (
+query AnimeList (
     $id: Int
     $page: Int
     $perPage: Int
