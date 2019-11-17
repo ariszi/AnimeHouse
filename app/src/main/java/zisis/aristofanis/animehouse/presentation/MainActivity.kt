@@ -4,16 +4,23 @@ import AnimeListQuery
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.apollographql.apollo.ApolloCall
-import com.apollographql.apollo.api.Response
-import com.apollographql.apollo.exception.ApolloException
-import org.jetbrains.annotations.NotNull
-import zisis.aristofanis.animehouse.data.RestProvider
+import android.widget.Toast
+import com.apollographql.apollo.api.Error
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.R
+import zisis.aristofanis.animehouse.data.AnimeListClient
+import zisis.aristofanis.animehouse.data.AnimeListWithInfoRepository
+import zisis.aristofanis.animehouse.domain.AnimeListUseCase
+import zisis.aristofanis.animehouse.domain.AnimeListWithInfo
+import zisis.aristofanis.animehouse.domain.QueryData
+import kotlin.coroutines.CoroutineContext
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), CoroutineScope {
 
-    private lateinit var getAnimeList: AnimeListQuery
+    private val job = Job()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,18 +29,30 @@ class MainActivity : AppCompatActivity() {
         getAnimeSon()
     }
 
-    private fun getAnimeSon() {
-        // Init Query
-        getAnimeList = AnimeListQuery.builder().build()
-        RestProvider.client.query(getAnimeList).enqueue(object : ApolloCall.Callback<AnimeListQuery.Data>() {
-            override fun onFailure(error: ApolloException) {
-                Log.d("Todo", error.toString())
-            }
+    override val coroutineContext: CoroutineContext = job + Dispatchers.IO
 
-            override fun onResponse(@NotNull response: Response<AnimeListQuery.Data>) {
-                // Changing UI must be on UI thread
-                Log.d("Todo", response.data().toString())
+    private fun getAnimeSon() {
+         launch {
+            val response =
+                AnimeListUseCase(AnimeListWithInfoRepository(AnimeListClient(query = AnimeListQuery.builder().build()))).getAnimeListWithInfo()
+            when (response){
+                is QueryData.Success<*> -> showSuccess(response.data as AnimeListWithInfo)
+                is QueryData.Error -> showError(response.errorMessage)
             }
-        })
+        }
+    }
+
+    private fun showSuccess(data: AnimeListWithInfo) {
+        Toast.makeText(this,"Success", Toast.LENGTH_LONG).show()
+        Log.d("TEST", data.animeList[0].description)
+    }
+
+    private fun showError(error: Error) {
+       Toast.makeText(this,error.message(), Toast.LENGTH_LONG).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        job.cancel()
     }
 }
