@@ -11,7 +11,7 @@ import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.data.AnimeListClient
 import zisis.aristofanis.animehouse.data.AnimeListWithInfoRepository
 import zisis.aristofanis.animehouse.domain.AnimeListUseCase
-import zisis.aristofanis.animehouse.domain.AnimeListWithInfo
+import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.presentation.presenters.HomePresenter
 import zisis.aristofanis.animehouse.presentation.screen.HomeContract
 

@@ -1,7 +1,7 @@
 package zisis.aristofanis.animehouse.data.mappers
 
-import zisis.aristofanis.animehouse.domain.Anime
-import zisis.aristofanis.animehouse.domain.AnimeListWithInfo
+import zisis.aristofanis.animehouse.domain.models.Anime
+import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 
 class AnimeListWithInfoMapper {
     fun transform(response: AnimeListQuery.Data?): AnimeListWithInfo = response?.let {

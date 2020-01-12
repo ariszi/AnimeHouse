@@ -4,7 +4,7 @@ import AnimeListQuery
 import com.apollographql.apollo.api.Error
 import com.apollographql.apollo.coroutines.toDeferred
 import zisis.aristofanis.animehouse.data.mappers.AnimeListWithInfoMapper
-import zisis.aristofanis.animehouse.domain.QueryData
+import zisis.aristofanis.animehouse.domain.models.QueryData
 import java.lang.Exception
 
 class AnimeListClient(private val query: AnimeListQuery) {
@@ -19,7 +19,5 @@ class AnimeListClient(private val query: AnimeListQuery) {
         } catch (e: Exception) {
             return QueryData.Error(Error("Generic Error", listOf(), mapOf()))
         }
-
     }
-
 }

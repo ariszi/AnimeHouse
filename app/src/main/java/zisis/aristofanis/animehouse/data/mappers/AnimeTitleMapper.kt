@@ -1,6 +1,6 @@
 package zisis.aristofanis.animehouse.data.mappers
 
-import zisis.aristofanis.animehouse.domain.AnimeTitle
+import zisis.aristofanis.animehouse.domain.models.AnimeTitle
 
 class AnimeTitleMapper {
     fun transform(response: AnimeListQuery.Title?): AnimeTitle {

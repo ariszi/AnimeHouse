@@ -1,7 +1,7 @@
 package zisis.aristofanis.animehouse.data
 
 import zisis.aristofanis.animehouse.domain.AnimeListDataSource
-import zisis.aristofanis.animehouse.domain.QueryData
+import zisis.aristofanis.animehouse.domain.models.QueryData
 
 class AnimeListWithInfoRepository(private val animeListClient: AnimeListClient) : AnimeListDataSource {
 

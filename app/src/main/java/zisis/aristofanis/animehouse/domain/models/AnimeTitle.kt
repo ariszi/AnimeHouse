@@ -1,4 +1,4 @@
-package zisis.aristofanis.animehouse.domain
+package zisis.aristofanis.animehouse.domain.models
 
 data class AnimeTitle(
     val native: String = "",

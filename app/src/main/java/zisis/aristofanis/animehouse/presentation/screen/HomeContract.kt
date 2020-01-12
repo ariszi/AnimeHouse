@@ -1,6 +1,6 @@
 package zisis.aristofanis.animehouse.presentation.screen
 
-import zisis.aristofanis.animehouse.domain.AnimeListWithInfo
+import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.presentation.presenters.BasePresenter
 
 interface HomeContract {
