@@ -17,7 +17,7 @@ class AnimeListClient(private val query: AnimeListQuery) {
             }
             return QueryData.Success(AnimeListWithInfoMapper().transform(response.data()))
         } catch (e: Exception) {
-            return QueryData.Error(Error("Generic Error", listOf(), mapOf()))
+            return QueryData.Error(Error(e.message, listOf(), mapOf()))
         }
     }
 }
