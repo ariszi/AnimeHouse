@@ -1,9 +1,10 @@
 package zisis.aristofanis.animehouse.data
 
-import zisis.aristofanis.animehouse.domain.AnimeListDataSource
+import zisis.aristofanis.animehouse.domain.datasources.AnimeListDataSource
 import zisis.aristofanis.animehouse.domain.models.QueryData
 
-class AnimeListWithInfoRepository(private val animeListClient: AnimeListClient) : AnimeListDataSource {
+class AnimeListWithInfoRepository(private val animeListClient: AnimeListClient) :
+    AnimeListDataSource {
 
     override suspend fun getAnimeList(): QueryData {
         return animeListClient.getAnimeList()

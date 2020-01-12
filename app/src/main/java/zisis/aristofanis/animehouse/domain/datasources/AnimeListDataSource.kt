@@ -1,4 +1,4 @@
-package zisis.aristofanis.animehouse.domain
+package zisis.aristofanis.animehouse.domain.datasources
 
 import zisis.aristofanis.animehouse.domain.models.QueryData
 
