@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Anime House</string>
+    <string name="generic_error">An error has occurred</string>
 </resources>
