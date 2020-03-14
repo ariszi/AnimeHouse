@@ -38,12 +38,12 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         button.setOnClickListener { presenter.getAnimeSon() }
     }
 
-    override fun showSuccess(data: AnimeListWithInfo) {
+    override fun showSuccess(animeListWithInfo: AnimeListWithInfo) {
         Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
     }
 
-    override fun showError(error: Error) {
-        Toast.makeText(this, error.message(), Toast.LENGTH_LONG).show()
+    override fun showError(errorMessage: Error) {
+        Toast.makeText(this, errorMessage.message(), Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {
