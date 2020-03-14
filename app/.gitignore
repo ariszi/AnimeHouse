@@ -34,7 +34,7 @@ captures/
 # IntelliJ
 *.iml
 .idea/
-.idea/
+/.idea/dictionaries/*
 
 # Git related files
 /.idea/vcs.xml
