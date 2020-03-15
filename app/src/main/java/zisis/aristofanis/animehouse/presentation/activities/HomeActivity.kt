@@ -8,7 +8,6 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import com.apollographql.apollo.api.Error
 import zisis.aristofanis.animehouse.R
-import zisis.aristofanis.animehouse.data.AnimeListClient
 import zisis.aristofanis.animehouse.data.AnimeListWithInfoRepository
 import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
@@ -24,13 +23,7 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        HomePresenter(
-            this, AnimeListUseCase(
-                AnimeListWithInfoRepository(
-                    AnimeListClient(query = AnimeListQuery.builder().build())
-                )
-            )
-        )
+        HomePresenter(this, AnimeListUseCase(AnimeListWithInfoRepository()))
         initListeners()
     }
 

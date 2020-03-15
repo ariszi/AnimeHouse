@@ -6,6 +6,5 @@ sealed class QueryData {
 
     data class Error(val errorMessage: ApolloError) : QueryData()
 
-    data class Success<out T>(
-        val data: T) : QueryData()
+    data class Success<T>(val data: T) : QueryData()
 }

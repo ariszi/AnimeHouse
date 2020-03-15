@@ -1,4 +1,4 @@
-package zisis.aristofanis.animehouse.data
+package zisis.aristofanis.animehouse.data.network
 
 import com.apollographql.apollo.ApolloClient
 import okhttp3.OkHttpClient
