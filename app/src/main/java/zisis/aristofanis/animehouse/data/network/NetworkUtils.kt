@@ -3,7 +3,7 @@ package zisis.aristofanis.animehouse.data.network
 import zisis.aristofanis.animehouse.domain.models.QueryData
 import com.apollographql.apollo.api.Error as ApolloError
 
-inline fun <ResponseRaw> result(codeBlock: () -> ResponseRaw): QueryData =
+inline fun <Domain> result(codeBlock: () -> Domain): QueryData<Domain> =
     try {
         QueryData.Success(codeBlock())
     } catch (e: Exception) {

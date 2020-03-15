@@ -1,6 +1,5 @@
 package zisis.aristofanis.animehouse.presentation.activities
 
-import AnimeListQuery
 import android.os.Bundle
 import android.view.View
 import android.widget.Button

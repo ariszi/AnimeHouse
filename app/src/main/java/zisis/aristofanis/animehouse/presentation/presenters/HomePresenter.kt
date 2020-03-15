@@ -1,23 +1,17 @@
 package zisis.aristofanis.animehouse.presentation.presenters
 
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
+import AnimeListQuery
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.models.QueryData
+import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.presentation.screen.HomeContract
-import kotlin.coroutines.CoroutineContext
 
 class HomePresenter(
     private val view: HomeContract.View,
-    private val getAnimeList: AnimeListUseCase,
-    private val job: Job = Job(),
-    override val coroutineContext: CoroutineContext = job + Dispatchers.Main
+    private val getAnimeListUseCase: AnimeListUseCase
 ) :
-    HomeContract.Presenter,
-    CoroutineScope {
+    HomeContract.Presenter
+{
 
     init {
         view.setPresenter(this)
@@ -25,20 +19,18 @@ class HomePresenter(
 
     override fun getAnimeSon() {
         view.showLoading()
-        launch(job) {
-            handleResults(getAnimeList.getAnimeListWithInfo())
-        }
+        getAnimeListUseCase(AnimeListQuery.builder().build()) { handleResults(it) }
     }
 
-    private fun handleResults(response: QueryData) {
+    private fun handleResults(response: QueryData<AnimeListWithInfo>) {
         view.hideLoading()
         when (response) {
-            is QueryData.Success<*> -> view.showSuccess(response.data as AnimeListWithInfo)
-            is QueryData.Error -> view.showError(response.errorMessage)
+            is QueryData.Success<AnimeListWithInfo> -> view.showSuccess(response.data)
+            is QueryData.Error<AnimeListWithInfo> -> view.showError(response.errorMessage)
         }
     }
 
     override fun terminate() {
-        job.cancel()
+        getAnimeListUseCase.unregister()
     }
 }
