@@ -12,17 +12,20 @@ import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.presentation.presenters.HomePresenter
 import zisis.aristofanis.animehouse.presentation.screen.HomeContract
+import zisis.aristofanis.animehouse.presentation.utils.ActivityLifecycleObserver
 
 class HomeActivity : BaseActivity(), HomeContract.View {
 
     private lateinit var presenter: HomeContract.Presenter
     private val button: Button by lazy { findViewById<Button>(R.id.theButton) }
     private val loading: ProgressBar by lazy { findViewById<ProgressBar>(R.id.loading) }
+    private val animeListUseCase =  AnimeListUseCase(AnimeListWithInfoRepository())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        HomePresenter(this, AnimeListUseCase(AnimeListWithInfoRepository()))
+        HomePresenter(this, animeListUseCase)
+        lifecycle.addObserver(ActivityLifecycleObserver(listOf(animeListUseCase)))
         initListeners()
     }
 
@@ -56,5 +59,4 @@ class HomeActivity : BaseActivity(), HomeContract.View {
         loading.visibility = View.GONE
         button.visibility = View.VISIBLE
     }
-
 }

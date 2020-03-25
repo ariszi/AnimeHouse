@@ -31,6 +31,6 @@ class HomePresenter(
     }
 
     override fun terminate() {
-        getAnimeListUseCase.unregister()
+       //do nothing
     }
 }
