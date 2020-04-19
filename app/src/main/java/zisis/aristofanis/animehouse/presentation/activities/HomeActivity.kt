@@ -17,8 +17,7 @@ import zisis.aristofanis.animehouse.presentation.utils.ActivityLifecycleObserver
 class HomeActivity : BaseActivity(), HomeContract.View {
 
     private lateinit var presenter: HomeContract.Presenter
-    private val button: Button by lazy { findViewById<Button>(R.id.theButton) }
-    private val loading: ProgressBar by lazy { findViewById<ProgressBar>(R.id.loading) }
+    private val loading: ProgressBar by lazy { findViewById(R.id.loading) }
     private val animeListUseCase =  AnimeListUseCase(AnimeListWithInfoRepository())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +29,6 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     private fun initListeners() {
-        button.setOnClickListener { presenter.getAnimeSon() }
     }
 
     override fun showSuccess(animeListWithInfo: AnimeListWithInfo) {
@@ -51,12 +49,10 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     override fun showLoading() {
-        button.visibility = View.GONE
         loading.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
         loading.visibility = View.GONE
-        button.visibility = View.VISIBLE
     }
 }
