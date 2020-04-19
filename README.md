@@ -1,6 +1,6 @@
 # Anime House
 This readme page will host a todo list (more like a wishlist) with things to come/implemented in the app. 
-More details about the project you can find in the wiki page of the repo. 
+More details about the project you can find in the [wiki](https://github.com/ariszi/anime-house.wiki.git) page of the repo. 
 
 - [X] Use cases with repo pattern
 - [X] Add mechanism for use case unsubscribe (MPV only)
