@@ -1,6 +1,6 @@
 package zisis.aristofanis.animehouse.presentation.presenters
 
-import AnimeListQuery
+import zisis.aristofanis.animehouse.AnimeListQuery
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.models.QueryData
 import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase

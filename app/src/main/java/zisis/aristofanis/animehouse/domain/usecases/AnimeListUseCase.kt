@@ -1,6 +1,6 @@
 package zisis.aristofanis.animehouse.domain.usecases
 
-import AnimeListQuery
+import zisis.aristofanis.animehouse.AnimeListQuery
 import zisis.aristofanis.animehouse.domain.datasources.AnimeListDataSource
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.models.QueryData
