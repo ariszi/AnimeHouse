@@ -5,6 +5,7 @@ query AnimeList (
     $search: String
     $genre: String
     $status: MediaStatus
+    $sort: [MediaSort]
 ) {
     Page(page: $page, perPage: $perPage) {
         pageInfo {
@@ -20,6 +21,7 @@ query AnimeList (
             genre: $genre
             status: $status
             type: ANIME
+            sort: $sort
         ) {
 
             id
@@ -30,6 +32,13 @@ query AnimeList (
             }
             genres
             status
+            averageScore
+            popularity
+            bannerImage
+            trending
+            coverImage {
+                extraLarge
+            }
             description
             episodes
         }
