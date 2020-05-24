@@ -5,6 +5,7 @@ import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.models.QueryData
 import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.presentation.screen.HomeContract
+import zisis.aristofanis.animehouse.type.MediaSort
 
 class HomePresenter(
     private val view: HomeContract.View,
@@ -15,11 +16,13 @@ class HomePresenter(
 
     init {
         view.setPresenter(this)
+        getAnimeSon()
     }
 
     override fun getAnimeSon() {
+       val query: AnimeListQuery=  AnimeListQuery.builder().sort(listOf(MediaSort.TRENDING_DESC)).build()
         view.showLoading()
-        getAnimeListUseCase(AnimeListQuery.builder().build()) { handleResults(it) }
+        getAnimeListUseCase(query) { handleResults(it) }
     }
 
     private fun handleResults(response: QueryData<AnimeListWithInfo>) {

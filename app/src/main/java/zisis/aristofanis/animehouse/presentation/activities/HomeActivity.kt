@@ -2,14 +2,15 @@ package zisis.aristofanis.animehouse.presentation.activities
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.apollographql.apollo.api.Error
+import kotlinx.android.synthetic.main.activity_main.*
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.data.AnimeListWithInfoRepository
-import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
+import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
+import zisis.aristofanis.animehouse.presentation.adapters.AnimeListAdapter
 import zisis.aristofanis.animehouse.presentation.presenters.HomePresenter
 import zisis.aristofanis.animehouse.presentation.screen.HomeContract
 import zisis.aristofanis.animehouse.presentation.utils.ActivityLifecycleObserver
@@ -17,14 +18,17 @@ import zisis.aristofanis.animehouse.presentation.utils.ActivityLifecycleObserver
 class HomeActivity : BaseActivity(), HomeContract.View {
 
     private lateinit var presenter: HomeContract.Presenter
-    private val loading: ProgressBar by lazy { findViewById(R.id.loading) }
-    private val animeListUseCase =  AnimeListUseCase(AnimeListWithInfoRepository())
+    private val linearLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(this) }
+    private val animeListUseCase = AnimeListUseCase(AnimeListWithInfoRepository())
+    private lateinit var adapter: AnimeListAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         HomePresenter(this, animeListUseCase)
         lifecycle.addObserver(ActivityLifecycleObserver(listOf(animeListUseCase)))
+        animeListRecyclerView.layoutManager = linearLayoutManager
+
         initListeners()
     }
 
@@ -32,11 +36,13 @@ class HomeActivity : BaseActivity(), HomeContract.View {
     }
 
     override fun showSuccess(animeListWithInfo: AnimeListWithInfo) {
+        adapter = AnimeListAdapter(animeListWithInfo.animeList)
+        animeListRecyclerView.adapter = adapter
         Toast.makeText(this, "Success", Toast.LENGTH_LONG).show()
     }
 
     override fun showError(errorMessage: Error) {
-        Toast.makeText(this, errorMessage.message(), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, errorMessage.message, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {
