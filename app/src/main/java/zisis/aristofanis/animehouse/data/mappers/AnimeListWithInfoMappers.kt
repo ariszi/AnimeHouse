@@ -1,9 +1,13 @@
 package zisis.aristofanis.animehouse.data.mappers
 
+import zisis.aristofanis.animehouse.AnimeListQuery
 import zisis.aristofanis.animehouse.domain.models.Anime
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.models.AnimeTitle
 import zisis.aristofanis.animehouse.domain.models.PageInfo
+import zisis.aristofanis.animehouse.domain.models.Status
+import zisis.aristofanis.animehouse.domain.models.Status.*
+import zisis.aristofanis.animehouse.domain.utils.EMPTY
 
 class AnimeListWithInfoMappers {
 
@@ -17,8 +21,8 @@ class AnimeListWithInfoMappers {
     private fun transform(response: AnimeListQuery.Title?): AnimeTitle {
         response?.let {
             return AnimeTitle(
-                native = it.native_() ?: "",
-                romaji = it.romaji() ?: ""
+                native = it.native_() ?: EMPTY,
+                romaji = it.romaji() ?: EMPTY
             )
         } ?: return AnimeTitle()
     }
@@ -26,7 +30,7 @@ class AnimeListWithInfoMappers {
     private fun transform(response: AnimeListQuery.Medium?): Anime {
         response.let {
             return Anime(
-                description = it?.description() ?: "",
+                description = it?.description() ?: EMPTY,
                 episodes = it?.episodes() ?: 0,
                 genres = it?.genres(),
                 status = returnStatus(it?.status().toString()),
