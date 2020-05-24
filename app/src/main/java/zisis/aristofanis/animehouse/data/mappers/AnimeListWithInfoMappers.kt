@@ -6,7 +6,11 @@ import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.models.AnimeTitle
 import zisis.aristofanis.animehouse.domain.models.PageInfo
 import zisis.aristofanis.animehouse.domain.models.Status
-import zisis.aristofanis.animehouse.domain.models.Status.*
+import zisis.aristofanis.animehouse.domain.models.Status.CANCELLED
+import zisis.aristofanis.animehouse.domain.models.Status.FINISHED
+import zisis.aristofanis.animehouse.domain.models.Status.NOT_YET_RELEASED
+import zisis.aristofanis.animehouse.domain.models.Status.RELEASING
+import zisis.aristofanis.animehouse.domain.models.Status.UNKNOWN
 import zisis.aristofanis.animehouse.domain.utils.EMPTY
 
 class AnimeListWithInfoMappers {
@@ -34,6 +38,7 @@ class AnimeListWithInfoMappers {
                 episodes = it?.episodes() ?: 0,
                 genres = it?.genres(),
                 status = returnStatus(it?.status().toString()),
+                image = it?.coverImage()?.extraLarge()?: EMPTY,
                 title = transform(it?.title())
             )
         }
