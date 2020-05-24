@@ -20,12 +20,8 @@ abstract class UseCase<T, Params> {
     ) {
         useCaseScope.launch { onResult(call(params)) }
     }
-
-    operator fun invoke(
-        coroutineScope: CoroutineScope,
-        params: Params,
-        onResult: (QueryData<T>) -> Unit
-    ) {
+    @Suppress("UNUSED_PARAMETER")
+    operator fun invoke(coroutineScope: CoroutineScope, params: Params, onResult: (QueryData<T>) -> Unit) {
         useCaseScope.launch { onResult(call(params)) }
     }
 
