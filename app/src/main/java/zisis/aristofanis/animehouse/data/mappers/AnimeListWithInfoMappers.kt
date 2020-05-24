@@ -29,11 +29,20 @@ class AnimeListWithInfoMappers {
                 description = it?.description() ?: "",
                 episodes = it?.episodes() ?: 0,
                 genres = it?.genres(),
-                status = it?.status().toString(),
+                status = returnStatus(it?.status().toString()),
                 title = transform(it?.title())
             )
         }
     }
+
+    private fun returnStatus(status: String): Status =
+        when (status) {
+            "FINISHED" -> FINISHED
+            "RELEASING" -> RELEASING
+            "NOT_YET_RELEASED" -> NOT_YET_RELEASED
+            "CANCELLED" -> CANCELLED
+            else -> UNKNOWN
+        }
 
     private fun transform(response: AnimeListQuery.PageInfo?): PageInfo {
         response?.let {
