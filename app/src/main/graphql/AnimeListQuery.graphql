@@ -28,7 +28,7 @@ query AnimeList (
             type
             title {
                 romaji
-                native
+                english
             }
             genres
             status

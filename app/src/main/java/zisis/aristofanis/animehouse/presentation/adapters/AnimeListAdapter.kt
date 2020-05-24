@@ -39,7 +39,7 @@ class AnimeListAdapter(private val animeList: List<Anime>) : RecyclerView.Adapte
                 .placeholder(R.drawable.ic_not_available)
                 .into(view.image)
 
-            view.title.text = anime.title.romaji
+            view.title.text = anime.title.english
             view.genre.text = anime.genres.toString()
             view.description.text = anime.description
         }

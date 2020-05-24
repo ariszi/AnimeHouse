@@ -1,6 +1,6 @@
 package zisis.aristofanis.animehouse.domain.models
 
 data class AnimeTitle(
-    val native: String = "",
+    val english: String = "",
     val romaji: String = ""
 )

@@ -25,7 +25,7 @@ class AnimeListWithInfoMappers {
     private fun transform(response: AnimeListQuery.Title?): AnimeTitle {
         response?.let {
             return AnimeTitle(
-                native = it.native_() ?: EMPTY,
+                english = it.english() ?: EMPTY,
                 romaji = it.romaji() ?: EMPTY
             )
         } ?: return AnimeTitle()
