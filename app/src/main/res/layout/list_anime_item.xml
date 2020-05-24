@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:elevation="4dp"
     android:layout_width="match_parent"
-    android:layout_height="82dp">
+    android:layout_height="98dp">
 
     <ImageView
         android:id="@+id/image"
@@ -41,7 +41,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:textColor="@color/black_bold_title"
-        android:textSize="20dp"
+        android:textSize="16dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toRightOf="@+id/image"
         app:layout_constraintRight_toRightOf="parent"
@@ -53,7 +53,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/grey_genre"
-        android:textSize="15dp"
+        android:textSize="13dp"
         android:textStyle="bold"
         android:lines="1"
         app:layout_constraintLeft_toLeftOf="@+id/title"
@@ -67,7 +67,7 @@
         android:layout_height="wrap_content"
         android:lines="1"
         android:textColor="@color/grey_description"
-        android:textSize="13dp"
+        android:textSize="11dp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="@+id/title"
         app:layout_constraintRight_toRightOf="@+id/title"
