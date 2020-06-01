@@ -4,8 +4,9 @@ More details about the project you can find in the [wiki](https://github.com/ari
 
 - [X] Use cases with repo pattern
 - [X] Add mechanism for use case unsubscribe (MPV only)
-- [ ] Add fragment with list (MVVM)
-- [ ] Add fragment with list (MPV)
+- [ ] Add activity with list (MVVM)
+- [ ] Add activity with list (MPV)
+- [ ] Convert activities to fragments
 - [ ] Gradle DSL
 - [ ] Koin for usecases
 - [ ] Koin for UI
@@ -13,7 +14,7 @@ More details about the project you can find in the [wiki](https://github.com/ari
 - [ ] Unit tests
 - [ ] UI tests
 - [ ] Mock webserver tests
-- [ ] app bundle
+- [ ] App bundle
 - [X] Set Graph QL
 - [ ] Logging
 - [ ] Animations
