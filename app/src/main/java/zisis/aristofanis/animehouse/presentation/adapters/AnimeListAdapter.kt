@@ -2,37 +2,31 @@ package zisis.aristofanis.animehouse.presentation.adapters
 
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.list_anime_item.view.*
-import timber.log.Timber
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.domain.models.Anime
 import zisis.aristofanis.animehouse.presentation.utils.inflate
 
-class AnimeListAdapter(private val animeList: List<Anime>) : RecyclerView.Adapter<AnimeListAdapter.AnimeListHolder>() {
+class AnimeListAdapter(val action: (Anime) -> Unit) : ListAdapter<Anime, AnimeListAdapter.AnimeListHolder>(AnimeDiffs()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeListHolder {
         val inflatedView = parent.inflate(R.layout.list_anime_item, false)
         return AnimeListHolder(inflatedView)
     }
 
-    override fun getItemCount(): Int = animeList.size
-
     override fun onBindViewHolder(holder: AnimeListHolder, position: Int) {
-        val itemAnime = animeList[position]
-        holder.bindAnime(itemAnime)
+        holder.bind(getItem(position), action)
     }
 
-    class AnimeListHolder(private val view: View) : RecyclerView.ViewHolder(view), View.OnClickListener {
-        init {
-            view.setOnClickListener(this)
-        }
-
-        override fun onClick(view: View?) {
-            Timber.d("AnimeListAdapter CLICK!")
-        }
-        fun bindAnime(anime: Anime) {
+    class AnimeListHolder(private val view: View) : RecyclerView.ViewHolder(view) {
+        fun bind(
+            anime: Anime,
+            action: (Anime) -> Unit
+        ) = with(view) {
             Glide.with(view.context)
                 .load(anime.image)
                 .centerCrop()
@@ -42,9 +36,22 @@ class AnimeListAdapter(private val animeList: List<Anime>) : RecyclerView.Adapte
             view.title.text = anime.title.english
             view.genre.text = anime.genres.toString()
             view.description.text = anime.description
+            view.setOnClickListener { action(anime) }
         }
+    }
 
+    class AnimeDiffs : DiffUtil.ItemCallback<Anime>() {
+        override fun areItemsTheSame(oldItem: Anime, newItem: Anime): Boolean =
+            oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: Anime, newItem: Anime): Boolean {
+            return (oldItem.averageScore == newItem.averageScore) ||
+                    (oldItem.episodes == newItem.episodes) ||
+                    (oldItem.trending == newItem.trending) ||
+                    (oldItem.title.english == newItem.title.english)
+        }
     }
 
 }
+
 

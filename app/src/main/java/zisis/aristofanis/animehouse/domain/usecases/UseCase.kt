@@ -14,15 +14,12 @@ abstract class UseCase<T, Params> {
 
     abstract suspend fun call(params: Params): QueryData<T>
 
-    operator fun invoke(
-        params: Params,
-        onResult: (QueryData<T>) -> Unit
-    ) {
+    operator fun invoke(params: Params, onResult: (QueryData<T>) -> Unit) {
         useCaseScope.launch { onResult(call(params)) }
     }
-    @Suppress("UNUSED_PARAMETER")
+
     operator fun invoke(coroutineScope: CoroutineScope, params: Params, onResult: (QueryData<T>) -> Unit) {
-        useCaseScope.launch { onResult(call(params)) }
+        coroutineScope.launch { onResult(call(params)) }
     }
 
     internal class UseCaseScope(context: CoroutineContext) : CoroutineScope {
