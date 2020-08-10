@@ -10,12 +10,12 @@ import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.presentation.activities.view_state.ErrorState
 import zisis.aristofanis.animehouse.presentation.activities.view_state.LoadingState
 import zisis.aristofanis.animehouse.presentation.activities.view_state.ResultState
-import zisis.aristofanis.animehouse.presentation.activities.view_state.ViewState
+import zisis.aristofanis.animehouse.presentation.activities.view_state.State
 import zisis.aristofanis.animehouse.type.MediaSort
 
 class AnimeListViewModel(private val animeListUseCase: AnimeListUseCase) : ViewModel() {
 
-    val uiModel: MutableLiveData<ViewState> = MutableLiveData(LoadingState(true))
+    val stateModel: MutableLiveData<State> = MutableLiveData(LoadingState(true))
 
     init {
         getAnimeList()
@@ -24,12 +24,12 @@ class AnimeListViewModel(private val animeListUseCase: AnimeListUseCase) : ViewM
     private fun getAnimeList() {
         val query: AnimeListQuery = AnimeListQuery.builder().sort(listOf(MediaSort.TRENDING_DESC)).build()
         return animeListUseCase(viewModelScope, query) {
-            uiModel.value = LoadingState(false)
-            uiModel.value = returnState(it)
+            stateModel.value = LoadingState(false)
+            stateModel.value = returnState(it)
         }
     }
 
-    private fun returnState(queryData: QueryData<AnimeListWithInfo>): ViewState =
+    private fun returnState(queryData: QueryData<AnimeListWithInfo>): State =
         when (queryData) {
             is QueryData.Success -> ResultState(queryData.data)
             is QueryData.Error -> ErrorState(queryData.errorMessage.message)

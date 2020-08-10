@@ -2,11 +2,11 @@ package zisis.aristofanis.animehouse.presentation.activities.view_state
 
 import android.view.View
 
-sealed class ViewState
+sealed class State
 
-data class ResultState<R>(val result: R) : ViewState()
-data class ErrorState(val errorText: String) : ViewState()
-data class LoadingState(val loading: Boolean) : ViewState() {
+data class ResultState<R>(val result: R) : State()
+data class ErrorState(val errorText: String) : State()
+data class LoadingState(val loading: Boolean) : State() {
     fun loadingVisibility(): Int = if (loading) {
         View.VISIBLE
     } else {
@@ -14,6 +14,6 @@ data class LoadingState(val loading: Boolean) : ViewState() {
     }
 }
 
-object ExitState : ViewState()
+object ExitState : State()
 
 
