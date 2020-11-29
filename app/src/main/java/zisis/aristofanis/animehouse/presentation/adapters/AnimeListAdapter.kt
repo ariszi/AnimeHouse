@@ -9,9 +9,11 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.list_anime_item.view.*
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.domain.models.Anime
+import zisis.aristofanis.animehouse.presentation.state_management.ShowAnimeState
 import zisis.aristofanis.animehouse.presentation.utils.inflate
 
-class AnimeListAdapter(val action: (Anime) -> Unit) : ListAdapter<Anime, AnimeListAdapter.AnimeListHolder>(AnimeDiffs()) {
+class AnimeListAdapter(private val action: ((ShowAnimeState) -> Unit)) :
+    ListAdapter<Anime, AnimeListAdapter.AnimeListHolder>(AnimeDiffs()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeListHolder {
         val inflatedView = parent.inflate(R.layout.list_anime_item, false)
@@ -25,7 +27,7 @@ class AnimeListAdapter(val action: (Anime) -> Unit) : ListAdapter<Anime, AnimeLi
     class AnimeListHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(
             anime: Anime,
-            action: (Anime) -> Unit
+            action: (ShowAnimeState) -> Unit
         ) = with(view) {
             Glide.with(view.context)
                 .load(anime.image)
@@ -36,7 +38,7 @@ class AnimeListAdapter(val action: (Anime) -> Unit) : ListAdapter<Anime, AnimeLi
             view.title.text = anime.title.english
             view.genre.text = anime.genres.toString()
             view.description.text = anime.description
-            view.setOnClickListener { action(anime) }
+            view.setOnClickListener { action(ShowAnimeState(anime)) }
         }
     }
 

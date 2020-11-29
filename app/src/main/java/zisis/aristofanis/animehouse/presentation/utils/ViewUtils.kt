@@ -8,3 +8,10 @@ import androidx.annotation.LayoutRes
 fun ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(layoutRes, this, attachToRoot)
 }
+
+fun View.visibilityExtension(showViewElement: Boolean){
+    visibility = if (showViewElement){
+        View.VISIBLE
+    }else
+        View.GONE
+}
