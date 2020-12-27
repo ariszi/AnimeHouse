@@ -1,10 +1,10 @@
 package zisis.aristofanis.animehouse.domain.datasources
 
 import zisis.aristofanis.animehouse.AnimeListQuery
-import zisis.aristofanis.animehouse.presentation.state_management.State
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState
 
 interface AnimeListDataSource {
 
-    suspend fun getAnimeList(params: AnimeListQuery): State
+    suspend fun getAnimeList(params: AnimeListQuery): AnimeListState
 
 }

@@ -12,18 +12,15 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import zisis.aristofanis.animehouse.R
-import zisis.aristofanis.animehouse.data.AnimeListWithInfoRepository
 import zisis.aristofanis.animehouse.domain.models.Anime
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
-import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.presentation.adapters.AnimeListAdapter
-import zisis.aristofanis.animehouse.presentation.state_management.ErrorState
-import zisis.aristofanis.animehouse.presentation.state_management.LaunchAnimeListAction
-import zisis.aristofanis.animehouse.presentation.state_management.ListItemClickIntentAction
-import zisis.aristofanis.animehouse.presentation.state_management.LoadingState
-import zisis.aristofanis.animehouse.presentation.state_management.ShowAnimeListState
-import zisis.aristofanis.animehouse.presentation.state_management.ShowAnimeState
-import zisis.aristofanis.animehouse.presentation.state_management.State
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListAction.ListItemClickIntentAction
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState.ErrorState
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState.LoadingState
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState.ShowAnimeListState
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState.ShowAnimeState
 import zisis.aristofanis.animehouse.presentation.utils.InjectUtils
 import zisis.aristofanis.animehouse.presentation.utils.visibilityExtension
 import zisis.aristofanis.animehouse.presentation.view_models.AnimeListViewModel
@@ -36,28 +33,25 @@ class AnimeListActivity : BaseActivity(R.layout.activity_main) {
     private val viewModel: AnimeListViewModel by viewModels { factory }
 
     private val adapter =
-        AnimeListAdapter { listItemClickIntentAction ->viewModel.intentChannel.offer(ListItemClickIntentAction(listItemClickIntentAction)) }
-
+        AnimeListAdapter { listItemClickIntentAction ->
+            viewModel.handleIntentAction(
+                ListItemClickIntentAction(listItemClickIntentAction)
+            )
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         animeListRecyclerView.layoutManager = LinearLayoutManager(this)
         registerIntentActionListeners()
-        initialState()
-    }
-
-    private fun initialState() {
-        val animeListUseCase = AnimeListUseCase(AnimeListWithInfoRepository())
-        viewModel.intentChannel.offer(LaunchAnimeListAction(animeListUseCase))
     }
 
     private fun registerIntentActionListeners() {
-        viewModel.state
-            .onEach { state -> renderState(state) }
+        viewModel.state()
+            .onEach { renderState(it) }
             .launchIn(lifecycleScope)
     }
 
-    private fun renderState(state: State) {
+    private fun renderState(state: AnimeListState) {
         when (state) {
             is LoadingState -> renderLoading(state)
             is ShowAnimeListState -> renderQueryResult(state.animeList)

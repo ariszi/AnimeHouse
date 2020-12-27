@@ -7,13 +7,11 @@ import zisis.aristofanis.animehouse.data.network.RestProvider
 import zisis.aristofanis.animehouse.data.network.result
 import zisis.aristofanis.animehouse.domain.datasources.AnimeListDataSource
 import zisis.aristofanis.animehouse.domain.models.QueryData
-import zisis.aristofanis.animehouse.presentation.state_management.ErrorState
-import zisis.aristofanis.animehouse.presentation.state_management.ShowAnimeListState
-import zisis.aristofanis.animehouse.presentation.state_management.State
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState
 
 class AnimeListWithInfoRepository : AnimeListDataSource {
 
-    override suspend fun getAnimeList(params: AnimeListQuery): State {
+    override suspend fun getAnimeList(params: AnimeListQuery): AnimeListState {
         val result = result {
             AnimeListWithInfoMappers().transform(
                 RestProvider.client.query(params).toDeferred().await().data
@@ -21,8 +19,8 @@ class AnimeListWithInfoRepository : AnimeListDataSource {
         }
 
       return  when (result) {
-            is QueryData.Success -> ShowAnimeListState(result.data)
-            is QueryData.Error -> ErrorState(result.errorMessage.message)
+            is QueryData.Success -> AnimeListState.ShowAnimeListState(result.data)
+            is QueryData.Error -> AnimeListState.ErrorState(result.errorMessage.message)
         }
     }
 }
