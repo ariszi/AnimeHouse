@@ -34,7 +34,7 @@ class AnimeListActivity : BaseActivity(R.layout.activity_main) {
 
     private val adapter =
         AnimeListAdapter { listItemClickIntentAction ->
-            viewModel.handleIntentAction(
+            viewModel.onIntentAction(
                 ListItemClickIntentAction(listItemClickIntentAction)
             )
         }

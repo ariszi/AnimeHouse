@@ -16,8 +16,6 @@ class AnimeListContract {
     sealed class AnimeListState : State {
 
         data class ShowAnimeListState(val animeList: AnimeListWithInfo) : AnimeListState()
-        object IdleState : AnimeListState()
-        object ExitState : AnimeListState()
         data class ShowAnimeState(val result: Anime) : AnimeListState()
         data class ErrorState(val errorText: String) : AnimeListState()
         data class LoadingState(val loading: Boolean) : AnimeListState()
