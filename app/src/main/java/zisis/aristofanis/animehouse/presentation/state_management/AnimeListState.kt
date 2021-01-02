@@ -4,22 +4,24 @@ import zisis.aristofanis.animehouse.domain.models.Anime
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 
-class AnimeListContract {
+sealed class AnimeListContract {
 
-    sealed class AnimeListAction : UserAction {
+    sealed class AnimeListEvent : Action {
 
-        data class ListItemClickIntentAction(val anime: AnimeListState.ShowAnimeState) : AnimeListAction()
-
-        data class LaunchAnimeListAction(val animeListUseCase: AnimeListUseCase) : AnimeListAction()
+        data class ListItemClickIntentEvent(val anime: Anime) : AnimeListEvent()
+        data class LaunchAnimeListEvent(val animeListUseCase: AnimeListUseCase) : AnimeListEvent()
 
     }
-    sealed class AnimeListState : State {
 
-        data class ShowAnimeListState(val animeList: AnimeListWithInfo) : AnimeListState()
-        data class ShowAnimeState(val result: Anime) : AnimeListState()
-        data class ErrorState(val errorText: String) : AnimeListState()
+    sealed class AnimeListState : State {
+        object InitState: AnimeListState()
         data class LoadingState(val loading: Boolean) : AnimeListState()
+        data class ShowAnimeListState(val animeList: AnimeListWithInfo) : AnimeListState()
+        data class ErrorState(val errorText: String) : AnimeListState()
+    }
+
+
+    sealed class AnimeListSideEffects : SideEffects {
+        data class ShowAnimeState(val result: Anime) : AnimeListSideEffects()
     }
 }
-
-

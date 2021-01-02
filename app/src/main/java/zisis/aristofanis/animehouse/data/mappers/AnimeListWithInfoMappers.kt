@@ -37,8 +37,9 @@ class AnimeListWithInfoMappers {
                 description = it?.description() ?: EMPTY,
                 episodes = it?.episodes() ?: 0,
                 genres = it?.genres(),
+                popularity = it?.popularity().toString(),
                 status = returnStatus(it?.status().toString()),
-                image = it?.coverImage()?.extraLarge()?: EMPTY,
+                image = it?.coverImage()?.extraLarge() ?: EMPTY,
                 title = transform(it?.title())
             )
         }
