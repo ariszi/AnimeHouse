@@ -13,16 +13,15 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.R
+import zisis.aristofanis.animehouse.data.AnimeListWithInfoRepository
 import zisis.aristofanis.animehouse.domain.models.Anime
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
+import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.domain.utils.EMPTY
 import zisis.aristofanis.animehouse.presentation.adapters.AnimeListAdapter
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListSideEffects
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListSideEffects.ShowAnimeState
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState.ErrorState
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState.LoadingState
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState.ShowAnimeListState
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeFilter
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeList
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract
 import zisis.aristofanis.animehouse.presentation.utils.InjectUtils
 import zisis.aristofanis.animehouse.presentation.utils.visibilityExtension
 import zisis.aristofanis.animehouse.presentation.view_models.AnimeListViewModel
@@ -36,31 +35,42 @@ class AnimeListActivity : BaseActivity(R.layout.activity_main) {
 
     private val adapter =
         AnimeListAdapter { listItemClickIntentAction ->
-            viewModel.onIntentAction(listItemClickIntentAction)
+            viewModel.setIntentAction(listItemClickIntentAction)
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         animeListRecyclerView.layoutManager = LinearLayoutManager(this)
         registerIntentActionListeners()
+        viewModel.setIntentAction(
+            AnimeListContract.Event.LaunchAnimeListIntentAction(
+                AnimeFilter(),
+                AnimeListUseCase(AnimeListWithInfoRepository())
+            )
+        )
     }
 
     private fun registerIntentActionListeners() {
         lifecycleScope.launch { viewModel.eventSideEffects.collect { renderSideEffects(it) } }
-        lifecycleScope.launch { viewModel.currentStateFlow.collect { renderState(it) } }
+        lifecycleScope.launch { viewModel.state.collect { renderState(it) } }
     }
 
-    private fun renderSideEffects(sideEffect: AnimeListSideEffects) {
+    private fun renderSideEffects(sideEffect: AnimeListContract.ViewEffects) {
         when (sideEffect) {
-            is ShowAnimeState -> renderAnime(sideEffect.result)
+            is AnimeListContract.ViewEffects.ShowAnimeState -> renderAnime(sideEffect.result)
         }
     }
 
-    private fun renderState(state: AnimeListState) {
-        when (state) {
-            is ShowAnimeListState -> renderQueryResult(state.animeList)
-            is LoadingState -> renderLoading(state)
-            is ErrorState -> renderError(state.errorText)
+    private fun renderState(state: AnimeListContract.ViewState) {
+        renderListState(state)
+
+    }
+
+    private fun renderListState(state: AnimeListContract.ViewState) {
+        when (state.animeList) {
+            is AnimeList.AnimeListItems -> renderQueryResult(state.animeList.animeList)
+            is AnimeList.Loading -> renderLoading(state.animeList.loading)
+            is AnimeList.ListError -> renderError(state.animeList.errorText)
         }
     }
 
@@ -77,8 +87,8 @@ class AnimeListActivity : BaseActivity(R.layout.activity_main) {
         animeListRecyclerView.adapter = adapter
     }
 
-    private fun renderLoading(visibility: LoadingState) {
-        loading.visibilityExtension(visibility.loading)
+    private fun renderLoading(visibility: Boolean) {
+        loading.visibilityExtension(visibility)
     }
 
 }

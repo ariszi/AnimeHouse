@@ -9,10 +9,10 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.list_anime_item.view.*
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.domain.models.Anime
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListEvent.ListItemClickIntentEvent
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract
 import zisis.aristofanis.animehouse.presentation.utils.inflate
 
-class AnimeListAdapter(private val action: ((ListItemClickIntentEvent) -> Unit)) :
+class AnimeListAdapter(private val action: ((AnimeListContract.Event.ListItemClickIntentAction) -> Unit)) :
     ListAdapter<Anime, AnimeListAdapter.AnimeListHolder>(AnimeDiffs()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeListHolder {
@@ -26,7 +26,7 @@ class AnimeListAdapter(private val action: ((ListItemClickIntentEvent) -> Unit))
     class AnimeListHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(
             anime: Anime,
-            action: (ListItemClickIntentEvent) -> Unit
+            action: (AnimeListContract.Event.ListItemClickIntentAction) -> Unit
         ) = with(view) {
             Glide.with(view.context)
                 .load(anime.image)
@@ -37,7 +37,7 @@ class AnimeListAdapter(private val action: ((ListItemClickIntentEvent) -> Unit))
             view.title.text = anime.title.english
             view.genre.text = anime.genres.toString()
             view.description.text = anime.description
-            view.setOnClickListener { action( ListItemClickIntentEvent(anime)) }
+            view.setOnClickListener { action(AnimeListContract.Event.ListItemClickIntentAction(anime)) }
         }
     }
 

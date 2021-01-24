@@ -8,34 +8,24 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import zisis.aristofanis.animehouse.presentation.state_management.Action
+import zisis.aristofanis.animehouse.presentation.state_management.IntentAction
 import zisis.aristofanis.animehouse.presentation.state_management.SideEffects
 import zisis.aristofanis.animehouse.presentation.state_management.State
 
 @ExperimentalCoroutinesApi
-abstract class BaseViewModel<S : State, I : Action, SE : SideEffects> constructor(initialState: S, initialIntentAction: I) :
+abstract class BaseViewModel<S : State, I : IntentAction, SE : SideEffects> constructor(initialState: S) :
     ViewModel() {
 
     private val mutableStateFlow: MutableStateFlow<S> = MutableStateFlow(initialState)
     private val sideEffects = Channel<SE>()
 
-    init {
-        onIntentAction(initialIntentAction)
-    }
-
-    fun reduceToState(reduceActionEvent: suspend () -> Flow<S>) {
-        viewModelScope.launch {
-            val newStateFlow = reduceActionEvent().stateIn(this)
-            newStateFlow.collect {
-                mutableStateFlow.value = it
-                log(it)
-            }
-        }
+    fun emitState(reduceState: S.() -> S) {
+        val newState = state.value.reduceState()
+        mutableStateFlow.value = newState
+        log(newState)
     }
 
     fun consumeSideEffect(handleSideEffect: () -> SE) {
@@ -44,15 +34,15 @@ abstract class BaseViewModel<S : State, I : Action, SE : SideEffects> constructo
         viewModelScope.launch { sideEffects.send(sideEffect) }
     }
 
-    fun onIntentAction(action: I) = viewModelScope.launch {
+    fun setIntentAction(action: I) = viewModelScope.launch {
         log(action)
-        reduceIntentAction(action)
+        consumeIntentAction(action)
     }
 
-    abstract suspend fun reduceIntentAction(intentAction: I)
+    abstract suspend fun consumeIntentAction(intentAction: I)
 
     //exposed to View
-    val currentStateFlow: StateFlow<S> = mutableStateFlow.asStateFlow()
+    val state: StateFlow<S> = mutableStateFlow.asStateFlow()
 
     val eventSideEffects: Flow<SE> = sideEffects.receiveAsFlow()
 

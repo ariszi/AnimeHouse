@@ -1,44 +1,43 @@
 package zisis.aristofanis.animehouse.presentation.view_models
 
+import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import zisis.aristofanis.animehouse.AnimeListQuery
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.domain.models.Anime
-import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListEvent
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListEvent.LaunchAnimeListEvent
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListEvent.ListItemClickIntentEvent
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListSideEffects
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListSideEffects.ShowAnimeState
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract.AnimeListState
-import zisis.aristofanis.animehouse.type.MediaSort
+import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract
 
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 class AnimeListViewModel(
-    animeListUseCase: AnimeListUseCase
-) : BaseViewModel<AnimeListState, AnimeListEvent, AnimeListSideEffects>(
-    AnimeListState.InitState, LaunchAnimeListEvent(animeListUseCase)
+) : BaseViewModel<AnimeListContract.ViewState, AnimeListContract.Event, AnimeListContract.ViewEffects>(
+    AnimeListContract.ViewState()
 ) {
 
-    override suspend fun reduceIntentAction(intentAction: AnimeListEvent) {
+    override suspend fun consumeIntentAction(intentAction: AnimeListContract.Event) {
         when (intentAction) {
-            is LaunchAnimeListEvent -> {
+            is AnimeListContract.Event.LaunchAnimeListIntentAction -> {
                 launchAnimeListFlow(intentAction)
             }
-            is ListItemClickIntentEvent -> {
+            is AnimeListContract.Event.ListItemClickIntentAction -> {
                 showClickedAnimeDetails(intentAction.anime)
             }
         }
     }
 
     private fun showClickedAnimeDetails(anime: Anime) {
-        consumeSideEffect { ShowAnimeState(anime) }
+        consumeSideEffect { AnimeListContract.ViewEffects.ShowAnimeState(anime) }
     }
 
-    private suspend fun launchAnimeListFlow(userIntents: LaunchAnimeListEvent) {
-        val query: AnimeListQuery = AnimeListQuery.builder().sort(listOf(MediaSort.POPULARITY_DESC)).build()
-        reduceToState { userIntents.animeListUseCase(query) }
+    private fun launchAnimeListFlow(userIntents: AnimeListContract.Event.LaunchAnimeListIntentAction) {
+        viewModelScope.launch {
+            userIntents.animeListUseCase(userIntents.filterToQuery()).collect {
+                emitState {
+                    AnimeListContract.ViewState(it, userIntents.filter)
+                }
+            }
+        }
     }
 
 }
