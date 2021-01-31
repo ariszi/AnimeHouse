@@ -4,6 +4,9 @@ import zisis.aristofanis.animehouse.AnimeListQuery
 import zisis.aristofanis.animehouse.domain.models.Anime
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
+import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.IntentAction
+import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.SideEffect
+import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.State
 import zisis.aristofanis.animehouse.type.MediaSort
 import zisis.aristofanis.animehouse.type.MediaStatus
 
@@ -26,9 +29,7 @@ sealed class AnimeListContract {
         }
     }
 
-    sealed class ViewEffects : SideEffects {
-
-        data class ShowAnimeState(val result: Anime) : ViewEffects()
+    sealed class ViewEffects : SideEffect {
     }
 
     data class ViewState(

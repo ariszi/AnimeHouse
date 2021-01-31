@@ -11,12 +11,12 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import zisis.aristofanis.animehouse.presentation.state_management.IntentAction
-import zisis.aristofanis.animehouse.presentation.state_management.SideEffects
-import zisis.aristofanis.animehouse.presentation.state_management.State
+import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.IntentAction
+import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.SideEffect
+import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.State
 
 @ExperimentalCoroutinesApi
-abstract class BaseViewModel<S : State, I : IntentAction, SE : SideEffects> constructor(initialState: S) :
+abstract class BaseViewModel<S : State, I : IntentAction, SE : SideEffect> constructor(initialState: S) :
     ViewModel() {
 
     private val mutableStateFlow: MutableStateFlow<S> = MutableStateFlow(initialState)
