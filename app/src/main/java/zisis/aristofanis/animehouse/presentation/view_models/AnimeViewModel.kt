@@ -2,7 +2,7 @@ package zisis.aristofanis.animehouse.presentation.view_models
 
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeContract
+import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeContract
 
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi

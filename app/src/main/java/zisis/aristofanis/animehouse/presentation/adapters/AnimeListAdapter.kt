@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.list_anime_item.view.*
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.domain.models.Anime
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract
+import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeListContract
 import zisis.aristofanis.animehouse.presentation.utils.inflate
 
 class AnimeListAdapter(private val action: ((AnimeListContract.Event.ListItemClickIntentAction) -> Unit)) :

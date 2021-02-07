@@ -5,7 +5,8 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeListContract
+import zisis.aristofanis.animehouse.domain.models.Anime
+import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeListContract
 
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
@@ -19,7 +20,14 @@ class AnimeListViewModel :
             is AnimeListContract.Event.LaunchAnimeListIntentAction -> {
                 launchAnimeListFlow(intentAction)
             }
+            is AnimeListContract.Event.ListItemClickIntentAction -> {
+                navigateToAnimeDetails(intentAction.anime)
+            }
         }
+    }
+
+    private fun navigateToAnimeDetails(anime: Anime) {
+        consumeSideEffect { AnimeListContract.ViewEffects.NavigateToAnimeDetails(anime) }
     }
 
     private fun launchAnimeListFlow(userIntents: AnimeListContract.Event.LaunchAnimeListIntentAction) {

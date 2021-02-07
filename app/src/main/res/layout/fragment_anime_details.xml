@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/anime_image"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toTopOf="@+id/anime_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/anime_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_xsmall"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:textColor="@color/black_bold_title"
+        android:textSize="@dimen/text_title"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/anime_image"
+        tools:text="Anime Title" />
+
+    <TextView
+        android:id="@+id/anime_types"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_xsmall"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:textColor="@color/grey_description"
+        android:textSize="@dimen/text_secondary_attributes"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/anime_title"
+        tools:text="Anime Types" />
+
+    <TextView
+        android:id="@+id/anime_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_medium"
+        android:layout_marginTop="@dimen/spacing_xsmall"
+        android:layout_marginEnd="@dimen/spacing_medium"
+        android:textColor="@color/grey_genre"
+        android:textSize="@dimen/text_description"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/anime_types"
+        tools:text="Anime Descr" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

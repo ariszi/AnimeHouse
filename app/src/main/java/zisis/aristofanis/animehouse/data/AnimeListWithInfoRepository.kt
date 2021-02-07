@@ -7,7 +7,7 @@ import zisis.aristofanis.animehouse.data.network.RestProvider
 import zisis.aristofanis.animehouse.data.network.result
 import zisis.aristofanis.animehouse.domain.datasources.AnimeListRepositoryContract
 import zisis.aristofanis.animehouse.domain.models.QueryData
-import zisis.aristofanis.animehouse.presentation.state_management.AnimeList
+import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeList
 
 class AnimeListWithInfoRepository : AnimeListRepositoryContract {
 

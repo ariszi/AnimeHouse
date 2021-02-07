@@ -1,12 +1,12 @@
-package zisis.aristofanis.animehouse.presentation.state_management
+package zisis.aristofanis.animehouse.presentation.state_contracts
 
 import zisis.aristofanis.animehouse.AnimeListQuery
 import zisis.aristofanis.animehouse.domain.models.Anime
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
-import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.IntentAction
-import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.SideEffect
-import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.State
+import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.IntentAction
+import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.SideEffect
+import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.State
 import zisis.aristofanis.animehouse.type.MediaSort
 import zisis.aristofanis.animehouse.type.MediaStatus
 
@@ -30,6 +30,7 @@ sealed class AnimeListContract {
     }
 
     sealed class ViewEffects : SideEffect {
+        data class NavigateToAnimeDetails(val anime: Anime) : ViewEffects()
     }
 
     data class ViewState(

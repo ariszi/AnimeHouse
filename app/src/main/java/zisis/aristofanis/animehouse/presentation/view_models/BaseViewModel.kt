@@ -11,9 +11,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.IntentAction
-import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.SideEffect
-import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.State
+import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.IntentAction
+import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.SideEffect
+import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.State
 
 @ExperimentalCoroutinesApi
 abstract class BaseViewModel<S : State, I : IntentAction, SE : SideEffect> constructor(initialState: S) :

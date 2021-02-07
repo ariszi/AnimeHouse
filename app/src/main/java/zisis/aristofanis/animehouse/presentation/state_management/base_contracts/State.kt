@@ -1,4 +1,0 @@
-package zisis.aristofanis.animehouse.presentation.state_management.base_contracts
-
-interface State
-

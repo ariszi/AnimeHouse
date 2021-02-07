@@ -1,9 +1,9 @@
-package zisis.aristofanis.animehouse.presentation.state_management
+package zisis.aristofanis.animehouse.presentation.state_contracts
 
 import zisis.aristofanis.animehouse.domain.models.Anime
-import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.IntentAction
-import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.SideEffect
-import zisis.aristofanis.animehouse.presentation.state_management.base_contracts.State
+import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.IntentAction
+import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.SideEffect
+import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.State
 
 class AnimeContract {
 
