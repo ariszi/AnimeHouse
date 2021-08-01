@@ -5,27 +5,28 @@ import androidx.activity.viewModels
 import androidx.fragment.app.add
 import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.presentation.activities.fragments.AnimeListFragment
+import zisis.aristofanis.animehouse.presentation.core.BaseActivity
 import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeContract
-import zisis.aristofanis.animehouse.presentation.utils.InjectUtils
 import zisis.aristofanis.animehouse.presentation.view_models.AnimeViewModel
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
+@AndroidEntryPoint
 class AnimeActivity : BaseActivity(R.layout.activity_main) {
+
+    private val viewModel: AnimeViewModel by viewModels()
 
     companion object{
         const val ANIME_LIST_ROOT_FRAGMENT = "anime_list_root_fragment"
 
     }
-
-    private val factory = InjectUtils.provideAnimeViewModelFactory()
-    private val viewModel: AnimeViewModel by viewModels { factory }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,6 @@ class AnimeActivity : BaseActivity(R.layout.activity_main) {
 
     private fun registerIntentActionListeners() {
         lifecycleScope.launch { viewModel.eventSideEffects.collect { renderSideEffects(it) } }
-        lifecycleScope.launch { viewModel.state.collect { renderState(it) } }
     }
 
     private fun renderSideEffects(sideEffect: AnimeContract.ViewEffects) {
@@ -50,7 +50,4 @@ class AnimeActivity : BaseActivity(R.layout.activity_main) {
         }
     }
 
-    private fun renderState(state: AnimeContract.ViewState) {
-
-    }
 }

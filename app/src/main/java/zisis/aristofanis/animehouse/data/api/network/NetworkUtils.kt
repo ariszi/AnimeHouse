@@ -1,4 +1,4 @@
-package zisis.aristofanis.animehouse.data.network
+package zisis.aristofanis.animehouse.data.api.network
 
 import zisis.aristofanis.animehouse.domain.models.QueryData
 import zisis.aristofanis.animehouse.domain.utils.EMPTY

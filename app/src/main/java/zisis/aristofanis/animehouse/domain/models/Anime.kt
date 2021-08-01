@@ -4,7 +4,7 @@ import zisis.aristofanis.animehouse.domain.models.Status.UNKNOWN
 import zisis.aristofanis.animehouse.domain.utils.EMPTY
 import zisis.aristofanis.animehouse.domain.utils.TWO_UPPER_DASHES
 
-class Anime(
+data class Anime(
     val description: String = EMPTY,
     val episodes: Int = 0,
     val genres: List<String>? = null,

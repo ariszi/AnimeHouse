@@ -15,11 +15,14 @@ class AnimeDetailsContract {
 
     }
 
-    data class ViewState(val data: AnimeData) : State
+    data class ViewState(
+        val data: AnimeData = AnimeData.Loading(true)
+    ) : State
 
 }
 
 sealed class AnimeData {
-    data class AnimeDetails(val anime: Anime): AnimeData()
+    data class AnimeDetails(val anime: Anime) : AnimeData()
     data class Loading(val loading: Boolean) : AnimeData()
 }
+

@@ -1,4 +1,4 @@
-package zisis.aristofanis.animehouse.presentation.activities
+package zisis.aristofanis.animehouse.presentation.core
 
 import androidx.appcompat.app.AppCompatActivity
 

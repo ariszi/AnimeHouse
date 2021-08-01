@@ -7,34 +7,33 @@ import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_anime_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.R
-import zisis.aristofanis.animehouse.data.AnimeListWithInfoRepository
 import zisis.aristofanis.animehouse.domain.models.Anime
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.presentation.adapters.AnimeListAdapter
-import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeFilter
 import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeList
 import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeListContract
-import zisis.aristofanis.animehouse.presentation.utils.InjectUtils
 import zisis.aristofanis.animehouse.presentation.utils.visibilityExtension
 import zisis.aristofanis.animehouse.presentation.view_models.AnimeListViewModel
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
+@AndroidEntryPoint
 class AnimeListFragment : BaseFragment(R.layout.fragment_anime_list) {
-    private val factory = InjectUtils.provideAnimeListViewModelFactory()
-    private val viewModel: AnimeListViewModel by viewModels { factory }
 
-    private val adapter =
-        AnimeListAdapter { listItemClickIntentAction ->
-            viewModel.setIntentAction(listItemClickIntentAction)
-        }
+    private val viewModel: AnimeListViewModel by viewModels()
+
+
+    private val adapter = AnimeListAdapter { listItemClickIntentAction ->
+        viewModel.setIntentAction(listItemClickIntentAction)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,19 +41,21 @@ class AnimeListFragment : BaseFragment(R.layout.fragment_anime_list) {
         registerIntentActionListeners()
         viewModel.setIntentAction(
             AnimeListContract.Event.LaunchAnimeListIntentAction(
-                AnimeFilter(),
-                AnimeListUseCase(AnimeListWithInfoRepository())
+                AnimeListUseCase.AnimeFilter()
             )
         )
     }
+
     private fun registerIntentActionListeners() {
         lifecycleScope.launch { viewModel.eventSideEffects.collect { renderSideEffects(it) } }
         lifecycleScope.launch { viewModel.state.collect { renderState(it) } }
     }
 
     private fun renderSideEffects(sideEffect: AnimeListContract.ViewEffects) {
-        when(sideEffect){
-            is AnimeListContract.ViewEffects.NavigateToAnimeDetails-> navigateToAnimeDetails(sideEffect.anime)
+        when (sideEffect) {
+            is AnimeListContract.ViewEffects.NavigateToAnimeDetails -> navigateToAnimeDetails(
+                sideEffect.anime
+            )
         }
     }
 

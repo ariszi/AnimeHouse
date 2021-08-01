@@ -1,30 +1,23 @@
 package zisis.aristofanis.animehouse.presentation.state_contracts
 
-import zisis.aristofanis.animehouse.AnimeListQuery
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
 import zisis.aristofanis.animehouse.domain.models.Anime
 import zisis.aristofanis.animehouse.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.IntentAction
 import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.SideEffect
 import zisis.aristofanis.animehouse.presentation.state_contracts.base_contracts.State
-import zisis.aristofanis.animehouse.type.MediaSort
-import zisis.aristofanis.animehouse.type.MediaStatus
 
-sealed class AnimeListContract {
+class AnimeListContract() {
 
     sealed class Event : IntentAction {
         data class ListItemClickIntentAction(val anime: Anime) : Event()
-        data class LaunchAnimeListIntentAction(val filter: AnimeFilter, val animeListUseCase: AnimeListUseCase) : Event() {
-            fun filterToQuery(): AnimeListQuery {
-                val query = AnimeListQuery.builder()
-                filter.id?.let { query.id(it) }
-                filter.page?.let { query.page(it) }
-                filter.perPage?.let { query.perPage(it) }
-                filter.search?.let { query.search(it) }
-                filter.genre?.let { query.genre(it) }
-                filter.status?.let { query.status(it) }
-                filter.sort?.let { query.sort(it) }
-                return query.build()
+        data class LaunchAnimeListIntentAction(val filter: AnimeListUseCase.AnimeFilter) : Event() {
+
+            @InternalCoroutinesApi
+            suspend fun getAnimeList(animeListUseCase: AnimeListUseCase): Flow<AnimeList> {
+                return animeListUseCase(filter)
             }
         }
     }
@@ -35,19 +28,9 @@ sealed class AnimeListContract {
 
     data class ViewState(
         val animeList: AnimeList = AnimeList.Loading(true),
-        val filter: AnimeFilter = AnimeFilter()
+        val filter: AnimeListUseCase.AnimeFilter = AnimeListUseCase.AnimeFilter()
     ) : State
 }
-
-data class AnimeFilter(
-    val id: Int? = null,
-    val page: Int? = null,
-    val perPage: Int? = null,
-    val search: String? = null,
-    val genre: String? = null,
-    val status: MediaStatus? = null,
-    val sort: List<MediaSort>? = listOf(MediaSort.POPULARITY_DESC)
-)
 
 sealed class AnimeList {
     object NoChangesOnList : AnimeList()

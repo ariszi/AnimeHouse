@@ -12,7 +12,7 @@ import zisis.aristofanis.animehouse.domain.models.Anime
 import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeListContract
 import zisis.aristofanis.animehouse.presentation.utils.inflate
 
-class AnimeListAdapter(private val action: ((AnimeListContract.Event.ListItemClickIntentAction) -> Unit)) :
+class AnimeListAdapter(private val action: (AnimeListContract.Event.ListItemClickIntentAction) -> Unit) :
     ListAdapter<Anime, AnimeListAdapter.AnimeListHolder>(AnimeDiffs()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeListHolder {

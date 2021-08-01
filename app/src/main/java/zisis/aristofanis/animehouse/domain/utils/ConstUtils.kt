@@ -7,6 +7,7 @@ const val DASH = "-"
 const val MINUS = "-"
 const val PLUS = "+"
 const val STAR = "*"
+const val ZERO = 0
 const val QUESTION_MARK = "?"
 const val AMPERSAND = "&"
 const val EQUALS = "="

@@ -3,26 +3,37 @@ package zisis.aristofanis.animehouse.presentation.activities.fragments
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_anime_details.*
+import kotlinx.android.synthetic.main.fragment_anime_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.domain.models.Anime
+import zisis.aristofanis.animehouse.presentation.di.ViewModelFactory
 import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeData
 import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeDetailsContract
-import zisis.aristofanis.animehouse.presentation.utils.InjectUtils
-import zisis.aristofanis.animehouse.presentation.view_models.AnimeDetailsViewModel
+import zisis.aristofanis.animehouse.presentation.utils.visibilityExtension
+import zisis.aristofanis.animehouse.presentation.view_models.assistedViewModel
+import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
+@AndroidEntryPoint
 class AnimeDetailsFragment(val anime: Anime) : BaseFragment(R.layout.fragment_anime_details) {
-    private val factory = InjectUtils.provideAnimeDetailsViewModelFactory(anime)
-    private val viewModel: AnimeDetailsViewModel by viewModels { factory }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
+    //private val viewModel: AnimeDetailsViewModel by viewModels()
+
+    private val viewModel by assistedViewModel {
+        viewModelFactory.create(params = anime)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,6 +72,6 @@ class AnimeDetailsFragment(val anime: Anime) : BaseFragment(R.layout.fragment_an
     }
 
     private fun renderLoading(visibility: Boolean) {
-       // loading.visibilityExtension(visibility)
+        loading.visibilityExtension(visibility)
     }
 }
