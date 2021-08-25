@@ -21,9 +21,6 @@ allprojects {
     repositories {
         google()
         mavenCentral()
-//        maven {
-//            url = "https://dl.bintray.com/apollographql/android"
-//        }
     }
 }
 
