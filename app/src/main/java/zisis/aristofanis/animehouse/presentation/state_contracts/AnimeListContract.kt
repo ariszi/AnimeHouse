@@ -13,11 +13,11 @@ class AnimeListContract() {
 
     sealed class Event : IntentAction {
         data class ListItemClickIntentAction(val anime: Anime) : Event()
-        data class LaunchAnimeListIntentAction(val filter: AnimeListUseCase.AnimeFilter) : Event() {
+        data class GetAnimeListWithFilter(val filter: AnimeListUseCase.AnimeFilter) : Event() {
 
             @InternalCoroutinesApi
-            suspend fun getAnimeList(animeListUseCase: AnimeListUseCase): Flow<AnimeList> {
-                return animeListUseCase(filter)
+            suspend fun getAnimeList(animeListUseCase: AnimeListUseCase): AnimeList {
+                return animeListUseCase.invoke(filter)
             }
         }
     }

@@ -11,7 +11,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_anime_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.domain.models.Anime
@@ -40,7 +39,7 @@ class AnimeListFragment : BaseFragment(R.layout.fragment_anime_list) {
         animeListRecyclerView.layoutManager = LinearLayoutManager(activity)
         registerIntentActionListeners()
         viewModel.setIntentAction(
-            AnimeListContract.Event.LaunchAnimeListIntentAction(
+            AnimeListContract.Event.GetAnimeListWithFilter(
                 AnimeListUseCase.AnimeFilter()
             )
         )

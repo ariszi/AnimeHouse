@@ -1,22 +1,15 @@
 package zisis.aristofanis.animehouse.domain.usecases
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import zisis.aristofanis.animehouse.domain.datasources.AnimeListRepositoryContract
 import zisis.aristofanis.animehouse.presentation.state_contracts.AnimeList
 import zisis.aristofanis.animehouse.type.MediaSort
 import zisis.aristofanis.animehouse.type.MediaStatus
 import javax.inject.Inject
 
-class AnimeListUseCase @Inject constructor(private val animeListRepositoryContract: AnimeListRepositoryContract) :
-    UseCase<AnimeList, AnimeListUseCase.AnimeFilter>() {
+class AnimeListUseCase @Inject constructor(private val animeListRepositoryContract: AnimeListRepositoryContract) {
 
-    override suspend fun call(params: AnimeFilter): Flow<AnimeList> {
-        return flow {
-            emit(AnimeList.Loading(true))
-            emit(animeListRepositoryContract.getAnimeList(params))
-            emit(AnimeList.Loading(false))
-        }
+    suspend fun invoke(params: AnimeFilter): AnimeList {
+        return animeListRepositoryContract.getAnimeList(params)
     }
 
     data class AnimeFilter(
