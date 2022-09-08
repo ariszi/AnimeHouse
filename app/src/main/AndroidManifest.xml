@@ -2,14 +2,14 @@
     package="zisis.aristofanis.animehouse">
 
     <application
-        android:name=".presentation.components.AnimeApplication"
+        android:name="zisis.aristofanis.animehouse.anime_list.presentation.components.AnimeApplication"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.activities.AnimeActivity"
+            android:name="zisis.aristofanis.animehouse.anime_list.presentation.activities.AnimeActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop"
             android:exported="true"
@@ -20,7 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".presentation.core.BaseActivity" />
+        <activity android:name="zisis.aristofanis.animehouse.anime_list.presentation.core.BaseActivity" />
 
     </application>
 
