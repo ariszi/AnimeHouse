@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class AnimeListUseCase @Inject constructor(private val animeListRepositoryContract: AnimeListRepositoryContract) {
 
-    suspend fun invoke(params: AnimeFilter): Result<AnimeListWithInfo> {
+    suspend fun invoke(params: AnimeFilter = AnimeFilter()): Result<AnimeListWithInfo> {
         return animeListRepositoryContract.getAnimeList(params)
     }
 

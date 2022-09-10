@@ -10,7 +10,7 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.R
-import zisis.aristofanis.animehouse.anime_list.presentation.activities.fragments.AnimeListFragment
+import zisis.aristofanis.animehouse.anime_list.presentation.activities.fragments.AnimeListFragmentV2
 import zisis.aristofanis.animehouse.anime_list.presentation.core.BaseActivity
 import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeContract
 import zisis.aristofanis.animehouse.anime_list.presentation.view_models.AnimeViewModel
@@ -45,7 +45,7 @@ class AnimeActivity : BaseActivity(R.layout.activity_main) {
     private fun attachAnimeListFragment() {
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add<AnimeListFragment>(R.id.fragment_container)
+            add<AnimeListFragmentV2>(R.id.fragment_container)
         }
     }
 
