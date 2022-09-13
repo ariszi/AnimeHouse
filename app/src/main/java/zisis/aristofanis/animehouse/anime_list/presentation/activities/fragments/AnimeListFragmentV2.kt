@@ -44,7 +44,7 @@ class AnimeListFragmentV2 : BaseFragment(R.layout.fragment_anime_list) {
     }
 
     private fun registerIntentActionListeners() {
-        lifecycleScope.launch { viewModel.state.collect { renderState(it) } }
+        lifecycleScope.launch { viewModel.state.collect { applyState(it) } }
     }
 
     private fun navigateToAnimeDetails(anime: Anime) {
@@ -54,23 +54,33 @@ class AnimeListFragmentV2 : BaseFragment(R.layout.fragment_anime_list) {
         }
     }
 
-    private fun renderState(state: AnimeListContractV2.AnimesState) {
-        renderEffects(state.effects)
-        renderAnimes(state.animesStatus)
+    private fun applyState(state: AnimeListContractV2.AnimesState) {
+        state.animesNavigation?.let { navigate(it) }
+        showAnimes(state.animesStatus)
         renderLoading(state.loading)
     }
 
-    private fun renderAnimes(animes: AnimeListContractV2.AnimesStatusV2) {
+    private fun showAnimes(animes: AnimeListContractV2.AnimesStatusV2) {
         when (animes) {
             is AnimeListContractV2.AnimesStatusV2.EmptyList -> Unit
             is AnimeListContractV2.AnimesStatusV2.DisplayAnimeList -> renderQueryResult(animes.animeList)
-            //  is AnimeListContractV2.AnimeListStatus.ShowError -> renderError(animes.errorText)
+            is AnimeListContractV2.AnimesStatusV2.ShowError -> renderError(animes.errorText)
         }
     }
 
-    private fun renderEffects(effects: AnimeListContractV2.AnimesEffects) {
-        effects.navigateToAnimeDetails?.let { navigateToAnimeDetails(it) }
-        effects.errorText?.let { renderError(it) }
+    private fun navigate(nav: AnimeListContractV2.AnimesNavigation) {
+        when (nav) {
+            is AnimeListContractV2.AnimesNavigation.NavigateBack -> navigateBack()
+            is AnimeListContractV2.AnimesNavigation.NavigateToAnimeDetails -> navigateToAnimeDetails(
+                nav.anime
+            )
+        }.also {
+            viewModel.consumeEvent(AnimeListContractV2.AnimesEvent.AcknowledgeNavigation)
+        }
+    }
+
+    private fun navigateBack() {
+        TODO("Not yet implemented")
     }
 
 

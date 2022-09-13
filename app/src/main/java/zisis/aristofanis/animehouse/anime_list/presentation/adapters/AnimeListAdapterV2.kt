@@ -12,7 +12,7 @@ import zisis.aristofanis.animehouse.anime_list.domain.models.Anime
 import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeListContractV2
 import zisis.aristofanis.animehouse.core.presentation.utils.inflate
 
-class AnimeListAdapterV2(private val action: (AnimeListContractV2.AnimesEvent.ListItemClickIntentAction) -> Unit) :
+class AnimeListAdapterV2(private val action: (AnimeListContractV2.AnimesEvent.AnimePressed) -> Unit) :
     ListAdapter<Anime, AnimeListAdapterV2.AnimeListHolder>(AnimeDiffs()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeListHolder {
@@ -26,7 +26,7 @@ class AnimeListAdapterV2(private val action: (AnimeListContractV2.AnimesEvent.Li
     class AnimeListHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(
             anime: Anime,
-            action: (AnimeListContractV2.AnimesEvent.ListItemClickIntentAction) -> Unit
+            action: (AnimeListContractV2.AnimesEvent.AnimePressed) -> Unit
         ) = with(view) {
             Glide.with(view.context)
                 .load(anime.image)
@@ -37,7 +37,7 @@ class AnimeListAdapterV2(private val action: (AnimeListContractV2.AnimesEvent.Li
             view.title.text = anime.title.english
             view.genre.text = anime.genres.toString()
             view.description.text = anime.description
-            view.setOnClickListener { action(AnimeListContractV2.AnimesEvent.ListItemClickIntentAction(anime)) }
+            view.setOnClickListener { action(AnimeListContractV2.AnimesEvent.AnimePressed(anime)) }
         }
     }
 
