@@ -9,17 +9,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loading_anime_details"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_url="https://assets4.lottiefiles.com/packages/lf20_kJNwM4.json" />
+
         <ImageView
             android:id="@+id/anime_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:background="@color/amber_50"
             android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@+id/anime_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHeight_percent="0.3"
+            app:layout_constraintHeight_percent="0.4"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
+            app:layout_constraintVertical_chainStyle="spread_inside" />
 
         <TextView
             android:id="@+id/anime_title"
@@ -60,6 +74,7 @@
             android:layout_marginEnd="@dimen/spacing_medium"
             android:textColor="@color/grey_genre"
             android:textSize="@dimen/text_description"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/anime_types"

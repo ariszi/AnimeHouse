@@ -7,14 +7,12 @@ import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_anime_details.*
-import kotlinx.android.synthetic.main.fragment_anime_list.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.anime_list.domain.models.Anime
 import zisis.aristofanis.animehouse.anime_list.presentation.di.ViewModelFactory
-import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeData
 import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeDetailsContract
 import zisis.aristofanis.animehouse.anime_list.presentation.view_models.assistedViewModel
 import zisis.aristofanis.animehouse.core.presentation.utils.visibilityExtension
@@ -27,9 +25,6 @@ class AnimeDetailsFragment(val anime: Anime) : BaseFragment(R.layout.fragment_an
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
-
-    //private val viewModel: AnimeDetailsViewModel by viewModels()
-
     private val viewModel by assistedViewModel {
         viewModelFactory.create(params = anime)
     }
@@ -40,30 +35,28 @@ class AnimeDetailsFragment(val anime: Anime) : BaseFragment(R.layout.fragment_an
     }
 
     private fun registerIntentActionListeners() {
-        lifecycleScope.launch { viewModel.eventSideEffects.collect { renderSideEffects(it) } }
-        lifecycleScope.launch { viewModel.state.collect { renderState(it) } }
+        lifecycleScope.launch { viewModel.state.collect { applyState(it) } }
     }
 
-    private fun renderState(viewState: AnimeDetailsContract.ViewState) {
-        when (viewState.data) {
-            is AnimeData.AnimeDetails -> renderAnime(viewState.data)
-        }
+    private fun applyState(viewState: AnimeDetailsContract.AnimeDetailsState) {
+        navigate(viewState.navigateBack)
+        showAnimeDetails(viewState.animeInfoSubState)
+        renderLoading(viewState.loading)
     }
 
-    private fun renderAnime(data: AnimeData.AnimeDetails) {
+    private fun navigate(navigateBack: Boolean) {
+
+    }
+
+    private fun showAnimeDetails(animeDetails: AnimeDetailsContract.AnimeInfoSubState) {
         activity?.let {
             Glide.with(it)
-                .load(data.anime.image)
-                .centerCrop()
+                .load(animeDetails.image)
                 .into(anime_image)
         }
-        anime_title.text = data.anime.title.english
-        anime_types.text = data.anime.genres?.joinToString()
-        anime_description.text = data.anime.description
-    }
-
-    private fun renderSideEffects(sideEffect: AnimeDetailsContract.ViewEffects) {
-
+        anime_title.text = animeDetails.title
+        anime_types.text = animeDetails.genre
+        anime_description.text = animeDetails.description
     }
 
     private fun renderError(errorText: String) {
@@ -71,6 +64,6 @@ class AnimeDetailsFragment(val anime: Anime) : BaseFragment(R.layout.fragment_an
     }
 
     private fun renderLoading(visibility: Boolean) {
-        loading.visibilityExtension(visibility)
+        loading_anime_details.visibilityExtension(visibility)
     }
 }

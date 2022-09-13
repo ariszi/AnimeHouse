@@ -71,9 +71,8 @@ class AnimeListFragmentV2 : BaseFragment(R.layout.fragment_anime_list) {
     private fun navigate(nav: AnimeListContractV2.AnimesNavigation) {
         when (nav) {
             is AnimeListContractV2.AnimesNavigation.NavigateBack -> navigateBack()
-            is AnimeListContractV2.AnimesNavigation.NavigateToAnimeDetails -> navigateToAnimeDetails(
-                nav.anime
-            )
+            is AnimeListContractV2.AnimesNavigation.NavigateToAnimeDetails ->
+                navigateToAnimeDetails(nav.anime)
         }.also {
             viewModel.consumeEvent(AnimeListContractV2.AnimesEvent.AcknowledgeNavigation)
         }
