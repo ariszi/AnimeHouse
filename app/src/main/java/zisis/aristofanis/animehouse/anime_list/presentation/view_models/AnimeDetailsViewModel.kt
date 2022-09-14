@@ -6,32 +6,35 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import zisis.aristofanis.animehouse.anime_list.domain.models.Anime
 import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeDetailsContract
+import javax.inject.Inject
 
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
-class AnimeDetailsViewModel @AssistedInject constructor(@Assisted val anime: Anime) : ViewModel() {
+@HiltViewModel
+class AnimeDetailsViewModel @Inject constructor(
+    private val savedState: SavedStateHandle
+) : ViewModel() {
 
     private val loading: MutableStateFlow<Boolean> = MutableStateFlow(false)
     private val navigation: MutableStateFlow<Boolean> =
         MutableStateFlow(false)
 
-    private val animeDetails: Flow<Anime> =
-        flow { emit(anime) }
-            .onStart { loading.update { true } }
-            .onEach { loading.update { false } }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(5000L),
-                initialValue = Anime()
-            )
+    private val animeDetails: Flow<Anime> = savedState.getStateFlow<Anime?>("anime", Anime())
+        .filterNotNull()
+        .onStart { loading.update { true } }
+        .onEach { loading.update { false } }
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000L),
+            initialValue = Anime()
+        )
 
     val state: StateFlow<AnimeDetailsContract.AnimeDetailsState> =
         combine(loading, animeDetails, navigation) { loading, animeDetails, navigation ->

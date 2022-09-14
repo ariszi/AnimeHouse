@@ -6,7 +6,7 @@ import zisis.aristofanis.animehouse.anime_list.domain.usecases.AnimeListUseCase
 import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.base_contracts.IntentAction
 import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.base_contracts.State
 
-class AnimeListContractV2() {
+class AnimeListContract {
 
     sealed class AnimesEvent : IntentAction {
         data class AnimePressed(val anime: Anime) : AnimesEvent()
@@ -18,7 +18,7 @@ class AnimeListContractV2() {
 
     data class AnimesState(
         val loading: Boolean = false,
-        val animesStatus: AnimesStatusV2 = AnimesStatusV2.EmptyList,
+        val animesStatus: AnimesStatus = AnimesStatus.EmptyList,
         val animesNavigation: AnimesNavigation? = null,
         val genericError: String? = null
     ) : State
@@ -29,9 +29,9 @@ class AnimeListContractV2() {
         data class NavigateToAnimeDetails(val anime: Anime) : AnimesNavigation()
     }
 
-    sealed class AnimesStatusV2 {
-        object EmptyList : AnimesStatusV2()
-        data class DisplayAnimeList(val animeList: AnimeListWithInfo) : AnimesStatusV2()
-        data class ShowError(val errorText: String) : AnimesStatusV2()
+    sealed class AnimesStatus {
+        object EmptyList : AnimesStatus()
+        data class DisplayAnimeList(val animeList: AnimeListWithInfo) : AnimesStatus()
+        data class ShowError(val errorText: String) : AnimesStatus()
     }
 }

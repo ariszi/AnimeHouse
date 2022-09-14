@@ -3,6 +3,7 @@ package zisis.aristofanis.animehouse.anime_list.presentation.activities.fragment
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import dagger.hilt.android.AndroidEntryPoint
@@ -12,22 +13,16 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.anime_list.domain.models.Anime
-import zisis.aristofanis.animehouse.anime_list.presentation.di.ViewModelFactory
 import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeDetailsContract
-import zisis.aristofanis.animehouse.anime_list.presentation.view_models.assistedViewModel
+import zisis.aristofanis.animehouse.anime_list.presentation.view_models.AnimeDetailsViewModel
 import zisis.aristofanis.animehouse.core.presentation.utils.visibilityExtension
-import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
 @AndroidEntryPoint
 class AnimeDetailsFragment(val anime: Anime) : BaseFragment(R.layout.fragment_anime_details) {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelFactory
-    private val viewModel by assistedViewModel {
-        viewModelFactory.create(params = anime)
-    }
+    private val viewModel:AnimeDetailsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

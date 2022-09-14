@@ -13,6 +13,9 @@ object Dependencies {
     private const val vmSaveStateLibrary =
         "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycle_viewmodel_savedstate}"
 
+    private const val lifecycleRuntimeKTXLibrary =
+        "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle_viewmodel_savedstate}"
+
     private const val jsrLibrary = "javax.annotation:jsr250-api:${Versions.annotation_jsr250_api}"
 
     private const val okHttpLibrary = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
@@ -22,7 +25,8 @@ object Dependencies {
     private const val loggingInterceptorLibrary =
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
 
-    private const val apolloRuntimeLibrary = "com.apollographql.apollo:apollo-runtime:${Versions.apollo}"
+    private const val apolloRuntimeLibrary =
+        "com.apollographql.apollo:apollo-runtime:${Versions.apollo}"
 
     private const val apolloAndroidSupportLibrary =
         "com.apollographql.apollo:apollo-android-support:${Versions.apollo}"
@@ -39,7 +43,8 @@ object Dependencies {
     private const val constraintLayoutLibrary =
         "com.android.support.constraint:constraint-layout:${Versions.constraint_layout}"
 
-    private const val recycleViewLibrary = "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
+    private const val recycleViewLibrary =
+        "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
 
     private const val glideLibrary = "com.github.bumptech.glide:glide:${Versions.glide}"
 
@@ -52,7 +57,8 @@ object Dependencies {
 
     private const val hiltAndroidLibrary = "com.google.dagger:hilt-android:${Versions.hilt_version}"
 
-    private const val hiltCompilerLibrary = "com.google.dagger:hilt-compiler:${Versions.hilt_version}"
+    private const val hiltCompilerLibrary =
+        "com.google.dagger:hilt-compiler:${Versions.hilt_version}"
 
     private const val jetBrainsAnnotationLibrary =
         "org.jetbrains:annotations:${Versions.jetbrains_annotation}"
@@ -61,7 +67,8 @@ object Dependencies {
 
     private const val junitLibrary = "junit:junit:${Versions.junit}"
 
-    private const val androidxTestRunnerLibrary = "androidx.test:runner:${Versions.android_test_runner}"
+    private const val androidxTestRunnerLibrary =
+        "androidx.test:runner:${Versions.android_test_runner}"
 
     private const val espressoCoreLibrary =
         "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
@@ -75,6 +82,7 @@ object Dependencies {
         add(appCompactLibrary)
         add(coreKTXLibrary)
         add(vmSaveStateLibrary)
+        add(lifecycleRuntimeKTXLibrary)
         add(jsrLibrary)
         add(okHttpLibrary)
         add(fragmentKTXLibrary)

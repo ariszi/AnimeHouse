@@ -9,11 +9,11 @@ import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.list_anime_item.view.*
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.anime_list.domain.models.Anime
-import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeListContractV2
+import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeListContract
 import zisis.aristofanis.animehouse.core.presentation.utils.inflate
 
-class AnimeListAdapterV2(private val action: (AnimeListContractV2.AnimesEvent.AnimePressed) -> Unit) :
-    ListAdapter<Anime, AnimeListAdapterV2.AnimeListHolder>(AnimeDiffs()) {
+class AnimeListAdapter(private val action: (AnimeListContract.AnimesEvent.AnimePressed) -> Unit) :
+    ListAdapter<Anime, AnimeListAdapter.AnimeListHolder>(AnimeDiffs()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeListHolder {
         val inflatedView = parent.inflate(R.layout.list_anime_item, false)
@@ -26,7 +26,7 @@ class AnimeListAdapterV2(private val action: (AnimeListContractV2.AnimesEvent.An
     class AnimeListHolder(private val view: View) : RecyclerView.ViewHolder(view) {
         fun bind(
             anime: Anime,
-            action: (AnimeListContractV2.AnimesEvent.AnimePressed) -> Unit
+            action: (AnimeListContract.AnimesEvent.AnimePressed) -> Unit
         ) = with(view) {
             Glide.with(view.context)
                 .load(anime.image)
@@ -37,7 +37,7 @@ class AnimeListAdapterV2(private val action: (AnimeListContractV2.AnimesEvent.An
             view.title.text = anime.title.english
             view.genre.text = anime.genres.toString()
             view.description.text = anime.description
-            view.setOnClickListener { action(AnimeListContractV2.AnimesEvent.AnimePressed(anime)) }
+            view.setOnClickListener { action(AnimeListContract.AnimesEvent.AnimePressed(anime)) }
         }
     }
 

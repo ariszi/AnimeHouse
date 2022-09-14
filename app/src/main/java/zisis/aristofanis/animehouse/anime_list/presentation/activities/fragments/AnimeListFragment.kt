@@ -15,20 +15,20 @@ import kotlinx.coroutines.launch
 import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.anime_list.domain.models.Anime
 import zisis.aristofanis.animehouse.anime_list.domain.usecases.AnimeListUseCase
-import zisis.aristofanis.animehouse.anime_list.presentation.adapters.AnimeListAdapterV2
-import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeListContractV2
-import zisis.aristofanis.animehouse.anime_list.presentation.view_models.AnimeListViewModelV2
+import zisis.aristofanis.animehouse.anime_list.presentation.adapters.AnimeListAdapter
+import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeListContract
+import zisis.aristofanis.animehouse.anime_list.presentation.view_models.AnimeListViewModel
 import zisis.aristofanis.animehouse.core.presentation.utils.visibilityExtension
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
 @AndroidEntryPoint
-class AnimeListFragmentV2 : BaseFragment(R.layout.fragment_anime_list) {
+class AnimeListFragment : BaseFragment(R.layout.fragment_anime_list) {
 
-    private val viewModel: AnimeListViewModelV2 by viewModels()
+    private val viewModel: AnimeListViewModel by viewModels()
 
 
-    private val adapter = AnimeListAdapterV2 { listItemClickIntentAction ->
+    private val adapter = AnimeListAdapter { listItemClickIntentAction ->
         viewModel.consumeEvent(listItemClickIntentAction)
     }
 
@@ -37,7 +37,7 @@ class AnimeListFragmentV2 : BaseFragment(R.layout.fragment_anime_list) {
         animeListRecyclerView.layoutManager = LinearLayoutManager(activity)
         registerIntentActionListeners()
         viewModel.consumeEvent(
-            AnimeListContractV2.AnimesEvent.GetAnimeListWithFilter(
+            AnimeListContract.AnimesEvent.GetAnimeListWithFilter(
                 AnimeListUseCase.AnimeFilter()
             )
         )
@@ -54,27 +54,27 @@ class AnimeListFragmentV2 : BaseFragment(R.layout.fragment_anime_list) {
         }
     }
 
-    private fun applyState(state: AnimeListContractV2.AnimesState) {
+    private fun applyState(state: AnimeListContract.AnimesState) {
         state.animesNavigation?.let { navigate(it) }
         showAnimes(state.animesStatus)
         renderLoading(state.loading)
     }
 
-    private fun showAnimes(animes: AnimeListContractV2.AnimesStatusV2) {
+    private fun showAnimes(animes: AnimeListContract.AnimesStatus) {
         when (animes) {
-            is AnimeListContractV2.AnimesStatusV2.EmptyList -> Unit
-            is AnimeListContractV2.AnimesStatusV2.DisplayAnimeList -> renderQueryResult(animes.animeList)
-            is AnimeListContractV2.AnimesStatusV2.ShowError -> renderError(animes.errorText)
+            is AnimeListContract.AnimesStatus.EmptyList -> Unit
+            is AnimeListContract.AnimesStatus.DisplayAnimeList -> renderQueryResult(animes.animeList)
+            is AnimeListContract.AnimesStatus.ShowError -> renderError(animes.errorText)
         }
     }
 
-    private fun navigate(nav: AnimeListContractV2.AnimesNavigation) {
+    private fun navigate(nav: AnimeListContract.AnimesNavigation) {
         when (nav) {
-            is AnimeListContractV2.AnimesNavigation.NavigateBack -> navigateBack()
-            is AnimeListContractV2.AnimesNavigation.NavigateToAnimeDetails ->
+            is AnimeListContract.AnimesNavigation.NavigateBack -> navigateBack()
+            is AnimeListContract.AnimesNavigation.NavigateToAnimeDetails ->
                 navigateToAnimeDetails(nav.anime)
         }.also {
-            viewModel.consumeEvent(AnimeListContractV2.AnimesEvent.AcknowledgeNavigation)
+            viewModel.consumeEvent(AnimeListContract.AnimesEvent.AcknowledgeNavigation)
         }
     }
 
@@ -85,7 +85,7 @@ class AnimeListFragmentV2 : BaseFragment(R.layout.fragment_anime_list) {
 
     private fun renderError(errorText: String) {
         Toast.makeText(activity, errorText, Toast.LENGTH_LONG).show()
-        viewModel.consumeEvent(AnimeListContractV2.AnimesEvent.ErrorShown)
+        viewModel.consumeEvent(AnimeListContract.AnimesEvent.ErrorShown)
     }
 
     private fun renderQueryResult(list: zisis.aristofanis.animehouse.anime_list.domain.models.AnimeListWithInfo) {

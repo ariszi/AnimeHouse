@@ -1,5 +1,6 @@
 package zisis.aristofanis.animehouse.anime_list.presentation.view_models
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,7 +10,7 @@ import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.*
 import zisis.aristofanis.animehouse.anime_list.domain.models.Anime
 import zisis.aristofanis.animehouse.anime_list.domain.usecases.AnimeListUseCase
-import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeListContractV2
+import zisis.aristofanis.animehouse.anime_list.presentation.state_contracts.AnimeListContract
 import zisis.aristofanis.animehouse.core.domain.Result.Error
 import zisis.aristofanis.animehouse.core.domain.Result.Success
 import javax.inject.Inject
@@ -17,25 +18,28 @@ import javax.inject.Inject
 @InternalCoroutinesApi
 @ExperimentalCoroutinesApi
 @HiltViewModel
-class AnimeListViewModelV2 @Inject constructor(private val animeListUseCase: AnimeListUseCase) :
+class AnimeListViewModel @Inject constructor(
+    private val animeListUseCase: AnimeListUseCase,
+    private val savedState: SavedStateHandle
+) :
     ViewModel() {
 
 
     private val loading: MutableStateFlow<Boolean> = MutableStateFlow(false)
-    private val navigation: MutableStateFlow<AnimeListContractV2.AnimesNavigation?> =
+    private val navigation: MutableStateFlow<AnimeListContract.AnimesNavigation?> =
         MutableStateFlow(null)
-    private val showAnimes: MutableStateFlow<AnimeListContractV2.AnimesStatusV2> =
-        MutableStateFlow(AnimeListContractV2.AnimesStatusV2.EmptyList)
+    private val showAnimes: MutableStateFlow<AnimeListContract.AnimesStatus> =
+        MutableStateFlow(AnimeListContract.AnimesStatus.EmptyList)
 
     private val animes =
         flow {
             emit(
                 when (val animes = animeListUseCase.invoke()) {
                     is Success -> {
-                        AnimeListContractV2.AnimesStatusV2.DisplayAnimeList(animes.data)
+                        AnimeListContract.AnimesStatus.DisplayAnimeList(animes.data)
                     }
                     is Error -> {
-                        AnimeListContractV2.AnimesStatusV2.ShowError("Something is up")
+                        AnimeListContract.AnimesStatus.ShowError("Something is up")
                     }
                 }
             )
@@ -45,7 +49,7 @@ class AnimeListViewModelV2 @Inject constructor(private val animeListUseCase: Ani
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5000L),
-                initialValue = AnimeListContractV2.AnimesStatusV2.EmptyList
+                initialValue = AnimeListContract.AnimesStatus.EmptyList
             )
 
 
@@ -53,9 +57,9 @@ class AnimeListViewModelV2 @Inject constructor(private val animeListUseCase: Ani
         showAnimes.update { animes.value }
     }
 
-    val state: StateFlow<AnimeListContractV2.AnimesState> =
+    val state: StateFlow<AnimeListContract.AnimesState> =
         combine(loading, animes, navigation) { loading, animes, navigation ->
-            AnimeListContractV2.AnimesState(
+            AnimeListContract.AnimesState(
                 loading,
                 animes,
                 navigation
@@ -64,22 +68,22 @@ class AnimeListViewModelV2 @Inject constructor(private val animeListUseCase: Ani
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(),
-                initialValue = AnimeListContractV2.AnimesState()
+                initialValue = AnimeListContract.AnimesState()
             )
 
 
-    fun consumeEvent(event: AnimeListContractV2.AnimesEvent) {
+    fun consumeEvent(event: AnimeListContract.AnimesEvent) {
         when (event) {
-            is AnimeListContractV2.AnimesEvent.GetAnimeListWithFilter -> {
+            is AnimeListContract.AnimesEvent.GetAnimeListWithFilter -> {
                 retrieveAnimes()
             }
-            is AnimeListContractV2.AnimesEvent.AnimePressed -> {
+            is AnimeListContract.AnimesEvent.AnimePressed -> {
                 navigateToAnimeDetails(event.anime)
             }
-            is AnimeListContractV2.AnimesEvent.BackPressed -> {
+            is AnimeListContract.AnimesEvent.BackPressed -> {
                 navigateUserBack()
             }
-            is AnimeListContractV2.AnimesEvent.AcknowledgeNavigation -> {
+            is AnimeListContract.AnimesEvent.AcknowledgeNavigation -> {
                 acknowledgeNavigation()
             }
         }
@@ -90,11 +94,11 @@ class AnimeListViewModelV2 @Inject constructor(private val animeListUseCase: Ani
     }
 
     private fun navigateUserBack() {
-        navigation.update { AnimeListContractV2.AnimesNavigation.NavigateBack }
+        navigation.update { AnimeListContract.AnimesNavigation.NavigateBack }
     }
 
     private fun navigateToAnimeDetails(anime: Anime) {
-        navigation.update { AnimeListContractV2.AnimesNavigation.NavigateToAnimeDetails(anime) }
+        navigation.update { AnimeListContract.AnimesNavigation.NavigateToAnimeDetails(anime) }
     }
 
 
