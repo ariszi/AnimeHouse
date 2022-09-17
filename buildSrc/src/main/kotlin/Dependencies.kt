@@ -48,6 +48,24 @@ object Dependencies {
 
     private const val glideLibrary = "com.github.bumptech.glide:glide:${Versions.glide}"
 
+    private const val navigationLibrary =
+        "androidx.navigation:navigation-fragment-ktx:${Versions.nav_version}"
+
+    private const val navigationKTXLibrary =
+        "androidx.navigation:navigation-ui:${Versions.nav_version}"
+
+    private const val navigationSafeArgsLibrary =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.nav_version}"
+
+    private const val navigationDynamicFeaturesLibrary =
+        "androidx.navigation:navigation-dynamic-features-fragment:${Versions.nav_version}"
+
+    private const val navigationTestingLibrary =
+        "androidx.navigation:navigation-testing:${Versions.nav_version}"
+
+    private const val navigationComposeLibrary =
+        "androidx.navigation:navigation-compose:${Versions.nav_version}"
+
     private const val timberLibrary = "com.jakewharton.timber:timber:${Versions.timber}"
 
     private const val lottieLibrary = "com.airbnb.android:lottie:${Versions.lottie}"
@@ -57,8 +75,8 @@ object Dependencies {
 
     private const val hiltAndroidLibrary = "com.google.dagger:hilt-android:${Versions.hilt_version}"
 
-    private const val hiltCompilerLibrary =
-        "com.google.dagger:hilt-compiler:${Versions.hilt_version}"
+    private const val hiltKaptCompilerLibrary =
+        "com.google.dagger:hilt-android-compiler:${Versions.hilt_version}"
 
     private const val jetBrainsAnnotationLibrary =
         "org.jetbrains:annotations:${Versions.jetbrains_annotation}"
@@ -73,11 +91,20 @@ object Dependencies {
     private const val espressoCoreLibrary =
         "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
 
+    private const val dataBindingLibrary =
+        "androidx.databinding:databinding-runtime:${Versions.data_binding}"
+
     /* Right now the lists bellow are going to be formed with a single module approach.
     In the future those lists might take another formation according to the module they are used
     to.*/
 
     val appLibraries = arrayListOf<String>().apply {
+        add(dataBindingLibrary)
+        add(navigationLibrary)
+        add(navigationComposeLibrary)
+        add(navigationDynamicFeaturesLibrary)
+     //   add(navigationSafeArgsLibrary)
+        add(navigationKTXLibrary)
         add(kotlinStandardLibrary)
         add(appCompactLibrary)
         add(coreKTXLibrary)
@@ -103,7 +130,7 @@ object Dependencies {
     }
 
     val kaptLibraries = arrayListOf<String>().apply {
-        add(hiltCompilerLibrary)
+        add(hiltKaptCompilerLibrary)
     }
 
     val compileOnlyLibraries = arrayListOf<String>().apply {
@@ -121,6 +148,7 @@ object Dependencies {
     val androidTestLibraries = arrayListOf<String>().apply {
         add(androidxTestRunnerLibrary)
         add(espressoCoreLibrary)
+        add(navigationTestingLibrary)
     }
 
     val testLibraries = arrayListOf<String>().apply {

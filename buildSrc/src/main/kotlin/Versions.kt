@@ -3,6 +3,8 @@ object Versions {
     const val gradle = "7.1.0-alpha02"
     const val kotlin_version = "1.6.0"
     const val hilt_version = "2.43.2"
+    const val nav_version = "2.5.2"
+    const val data_binding = "7.3.0"
     const val appcompat = "1.4.1"
     const val core_ktx = "1.9.0"
     const val fragment = "1.5.2"

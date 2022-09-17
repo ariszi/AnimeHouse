@@ -19,7 +19,7 @@
         app:lottie_url="https://assets4.lottiefiles.com/packages/lf20_kJNwM4.json" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/animeListRecyclerView"
+        android:id="@+id/anime_list_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:scrollbars="vertical"

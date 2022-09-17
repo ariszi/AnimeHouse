@@ -2,9 +2,10 @@ plugins {
     id("com.apollographql.apollo")
     id("com.android.application")
     id("dagger.hilt.android.plugin")
+    id("androidx.navigation.safeargs")
     kotlin("android")
-    kotlin("android.extensions")
     kotlin("kapt")
+
 }
 
 
@@ -25,6 +26,9 @@ android {
 
     kotlinOptions {
         jvmTarget = "1.8"
+    }
+    buildFeatures {
+        viewBinding = true
     }
     buildTypes {
         getByName("release") {
@@ -57,9 +61,9 @@ apollo {
 dependencies {
     //std lib
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    kapt(Dependencies.kaptLibraries)
     //app libs
     implementation(Dependencies.appLibraries)
-    kapt(Dependencies.kaptLibraries)
     compileOnly(Dependencies.compileOnlyLibraries)
     testCompileOnly(Dependencies.testCompileOnlyLibraries)
     annotationProcessor(Dependencies.annotationProcessorLibraries)

@@ -6,7 +6,7 @@
         <entry key="app/src/main/res/drawable/description_gradient_cover.xml" value="0.17222222222222222" />
         <entry key="app/src/main/res/layout/fragment_anime_details.xml" value="0.375" />
         <entry key="app/src/main/res/layout/fragment_anime_list.xml" value="0.335" />
-        <entry key="app/src/main/res/layout/list_anime_item.xml" value="0.39166666666666666" />
+        <entry key="app/src/main/res/layout/list_anime_item.xml" value="0.1" />
       </map>
     </option>
   </component>
