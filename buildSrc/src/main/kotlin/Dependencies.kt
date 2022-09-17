@@ -54,9 +54,6 @@ object Dependencies {
     private const val navigationKTXLibrary =
         "androidx.navigation:navigation-ui:${Versions.nav_version}"
 
-    private const val navigationSafeArgsLibrary =
-        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.nav_version}"
-
     private const val navigationDynamicFeaturesLibrary =
         "androidx.navigation:navigation-dynamic-features-fragment:${Versions.nav_version}"
 
@@ -103,7 +100,6 @@ object Dependencies {
         add(navigationLibrary)
         add(navigationComposeLibrary)
         add(navigationDynamicFeaturesLibrary)
-     //   add(navigationSafeArgsLibrary)
         add(navigationKTXLibrary)
         add(kotlinStandardLibrary)
         add(appCompactLibrary)

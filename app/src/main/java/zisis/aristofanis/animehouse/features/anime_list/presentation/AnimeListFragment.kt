@@ -3,9 +3,9 @@ package zisis.aristofanis.animehouse.features.anime_list.presentation
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.airbnb.lottie.LottieAnimationView
@@ -17,7 +17,6 @@ import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.core.presentation.BaseFragment
 import zisis.aristofanis.animehouse.core.presentation.utils.visibilityExtension
 import zisis.aristofanis.animehouse.databinding.FragmentAnimeListBinding
-import zisis.aristofanis.animehouse.features.anime_details.presentation.AnimeDetailsFragment
 import zisis.aristofanis.animehouse.features.anime_list.domain.models.Anime
 import zisis.aristofanis.animehouse.features.anime_list.domain.models.AnimeListWithInfo
 import zisis.aristofanis.animehouse.features.anime_list.domain.usecases.AnimeListUseCase
@@ -60,10 +59,9 @@ class AnimeListFragment : BaseFragment(R.layout.fragment_anime_list) {
     }
 
     private fun navigateToAnimeDetails(anime: Anime) {
-        parentFragmentManager.commit {
-            setReorderingAllowed(true)
-            replace(R.id.fragment_container, AnimeDetailsFragment(anime)).addToBackStack(null)
-        }
+        val action =
+            AnimeListFragmentDirections.actionAnimeListFragmentToAnimeDetailsFragment(anime)
+        this.findNavController().navigate(action)
     }
 
     private fun applyState(state: AnimeListContract.AnimesState) {

@@ -25,7 +25,7 @@ class AnimeDetailsViewModel @Inject constructor(
     private val navigation: MutableStateFlow<Boolean> =
         MutableStateFlow(false)
 
-    private val animeDetails: Flow<Anime> = savedState.getStateFlow<Anime?>("anime", Anime())
+    private val animeDetails: Flow<Anime> = savedState.getStateFlow<Anime?>("animeArg", Anime())
         .filterNotNull()
         .onStart { loading.update { true } }
         .onEach { loading.update { false } }

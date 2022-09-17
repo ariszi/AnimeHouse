@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/anime_nav_graph"
+    app:startDestination="@id/animeListFragment">
+
+    <fragment
+        android:id="@+id/animeListFragment"
+        android:name="zisis.aristofanis.animehouse.features.anime_list.presentation.AnimeListFragment"
+        android:label="AnimeListFragment">
+        <action
+            android:id="@+id/action_animeListFragment_to_animeDetailsFragment"
+            app:destination="@id/animeDetailsFragment">
+            <argument
+                android:name="animeArg"
+                app:argType="zisis.aristofanis.animehouse.features.anime_list.domain.models.Anime" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/animeDetailsFragment"
+        android:name="zisis.aristofanis.animehouse.features.anime_details.presentation.AnimeDetailsFragment"
+        android:label="AnimeDetailsFragment">
+        <argument
+            android:name="animeArg"
+            app:argType="zisis.aristofanis.animehouse.features.anime_list.domain.models.Anime" />
+    </fragment>
+</navigation>

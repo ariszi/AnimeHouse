@@ -17,12 +17,11 @@ import zisis.aristofanis.animehouse.R
 import zisis.aristofanis.animehouse.core.presentation.BaseFragment
 import zisis.aristofanis.animehouse.core.presentation.utils.visibilityExtension
 import zisis.aristofanis.animehouse.databinding.FragmentAnimeDetailsBinding
-import zisis.aristofanis.animehouse.features.anime_list.domain.models.Anime
 
 @ExperimentalCoroutinesApi
 @InternalCoroutinesApi
 @AndroidEntryPoint
-class AnimeDetailsFragment(val anime: Anime) : BaseFragment(R.layout.fragment_anime_details) {
+class AnimeDetailsFragment : BaseFragment(R.layout.fragment_anime_details) {
 
     private val viewModel: AnimeDetailsViewModel by viewModels()
     private lateinit var animeTitle: TextView
