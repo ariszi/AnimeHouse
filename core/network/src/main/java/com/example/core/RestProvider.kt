@@ -1,4 +1,4 @@
-package zisis.aristofanis.animehouse.core.data
+package com.example.core
 
 import com.apollographql.apollo.ApolloClient
 import dagger.Module

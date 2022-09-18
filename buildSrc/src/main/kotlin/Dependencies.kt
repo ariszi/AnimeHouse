@@ -1,154 +1,183 @@
-object Dependencies {
+object Libs {
 
-    private const val kotlinStandardLibrary =
+    const val kotlinStandardLibrary =
         "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin_version}"
 
-    private const val appCompactLibrary = "androidx.appcompat:appcompat:${Versions.appcompat}"
+    const val appCompactLibrary = "androidx.appcompat:appcompat:${Versions.appcompat}"
 
-    private const val coreKTXLibrary = "androidx.core:core-ktx:${Versions.core_ktx}"
+    const val coreKTXLibrary = "androidx.core:core-ktx:${Versions.core_ktx}"
 
-    private const val supportAnnotationLibrary =
+    const val supportAnnotationLibrary =
         "com.android.support:support-annotations:${Versions.android_support_annotations}"
 
-    private const val vmSaveStateLibrary =
+    const val vmSaveStateLibrary =
         "androidx.lifecycle:lifecycle-viewmodel-savedstate:${Versions.lifecycle_viewmodel_savedstate}"
 
-    private const val lifecycleRuntimeKTXLibrary =
+    const val lifecycleRuntimeKTXLibrary =
         "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.lifecycle_viewmodel_savedstate}"
 
-    private const val jsrLibrary = "javax.annotation:jsr250-api:${Versions.annotation_jsr250_api}"
+    const val jsrLibrary = "javax.annotation:jsr250-api:${Versions.annotation_jsr250_api}"
 
-    private const val okHttpLibrary = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
+    const val okHttpLibrary = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
 
-    private const val fragmentKTXLibrary = "androidx.fragment:fragment-ktx:${Versions.fragment}"
+    const val fragmentKTXLibrary = "androidx.fragment:fragment-ktx:${Versions.fragment}"
 
-    private const val loggingInterceptorLibrary =
+    const val loggingInterceptorLibrary =
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
 
-    private const val apolloRuntimeLibrary =
+    const val apolloRuntimeLibrary =
         "com.apollographql.apollo:apollo-runtime:${Versions.apollo}"
 
-    private const val apolloAndroidSupportLibrary =
+    const val apolloAndroidSupportLibrary =
         "com.apollographql.apollo:apollo-android-support:${Versions.apollo}"
 
-    private const val apolloCoroutinesSupportLibrary =
+    const val apolloCoroutinesSupportLibrary =
         "com.apollographql.apollo:apollo-coroutines-support:${Versions.apollo}"
 
-    private const val kotlinxCoroutinesCoreLibrary =
+    const val kotlinxCoroutinesCoreLibrary =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
 
-    private const val kotlinxCoroutinesAndroidLibrary =
+    const val kotlinxCoroutinesAndroidLibrary =
         "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
-    private const val constraintLayoutLibrary =
+    const val constraintLayoutLibrary =
         "com.android.support.constraint:constraint-layout:${Versions.constraint_layout}"
 
-    private const val recycleViewLibrary =
+    const val recycleViewLibrary =
         "androidx.recyclerview:recyclerview:${Versions.recyclerview}"
 
-    private const val glideLibrary = "com.github.bumptech.glide:glide:${Versions.glide}"
+    const val glideLibrary = "com.github.bumptech.glide:glide:${Versions.glide}"
 
-    private const val navigationLibrary =
+    const val navigationLibrary =
         "androidx.navigation:navigation-fragment-ktx:${Versions.nav_version}"
 
-    private const val navigationKTXLibrary =
+    const val navigationKTXLibrary =
         "androidx.navigation:navigation-ui:${Versions.nav_version}"
 
-    private const val navigationDynamicFeaturesLibrary =
+    const val navigationDynamicFeaturesLibrary =
         "androidx.navigation:navigation-dynamic-features-fragment:${Versions.nav_version}"
 
-    private const val navigationTestingLibrary =
+    const val navigationTestingLibrary =
         "androidx.navigation:navigation-testing:${Versions.nav_version}"
 
-    private const val navigationComposeLibrary =
+    const val navigationComposeLibrary =
         "androidx.navigation:navigation-compose:${Versions.nav_version}"
 
-    private const val timberLibrary = "com.jakewharton.timber:timber:${Versions.timber}"
+    const val timberLibrary = "com.jakewharton.timber:timber:${Versions.timber}"
 
-    private const val lottieLibrary = "com.airbnb.android:lottie:${Versions.lottie}"
+    const val lottieLibrary = "com.airbnb.android:lottie:${Versions.lottie}"
 
-    private const val injectAssistedAnnotationDaggerLibrary =
+    const val injectAssistedAnnotationDaggerLibrary =
         "com.squareup.inject:assisted-inject-annotations-dagger2:${Versions.assisted_inject_annotations_dagger}"
 
-    private const val hiltAndroidLibrary = "com.google.dagger:hilt-android:${Versions.hilt_version}"
+    const val hiltAndroidLibrary = "com.google.dagger:hilt-android:${Versions.hilt_version}"
 
-    private const val hiltKaptCompilerLibrary =
+    const val hiltKaptCompilerLibrary =
         "com.google.dagger:hilt-android-compiler:${Versions.hilt_version}"
 
-    private const val jetBrainsAnnotationLibrary =
+    const val jetBrainsAnnotationLibrary =
         "org.jetbrains:annotations:${Versions.jetbrains_annotation}"
 
-    private const val glideCompilerLibrary = "com.github.bumptech.glide:compiler:${Versions.glide}"
+    const val glideCompilerLibrary = "com.github.bumptech.glide:compiler:${Versions.glide}"
 
-    private const val junitLibrary = "junit:junit:${Versions.junit}"
+    const val junitLibrary = "junit:junit:${Versions.junit}"
 
-    private const val androidxTestRunnerLibrary =
+    const val androidxTestRunnerLibrary =
         "androidx.test:runner:${Versions.android_test_runner}"
 
-    private const val espressoCoreLibrary =
+    const val espressoCoreLibrary =
         "androidx.test.espresso:espresso-core:${Versions.espresso_core}"
 
-    private const val dataBindingLibrary =
+    const val dataBindingLibrary =
         "androidx.databinding:databinding-runtime:${Versions.data_binding}"
 
-    /* Right now the lists bellow are going to be formed with a single module approach.
-    In the future those lists might take another formation according to the module they are used
-    to.*/
 
-    val appLibraries = arrayListOf<String>().apply {
-        add(dataBindingLibrary)
-        add(navigationLibrary)
-        add(navigationComposeLibrary)
-        add(navigationDynamicFeaturesLibrary)
-        add(navigationKTXLibrary)
-        add(kotlinStandardLibrary)
-        add(appCompactLibrary)
-        add(coreKTXLibrary)
-        add(vmSaveStateLibrary)
-        add(lifecycleRuntimeKTXLibrary)
-        add(jsrLibrary)
-        add(okHttpLibrary)
-        add(fragmentKTXLibrary)
-        add(loggingInterceptorLibrary)
-        add(supportAnnotationLibrary)
-        add(apolloRuntimeLibrary)
-        add(apolloAndroidSupportLibrary)
-        add(apolloCoroutinesSupportLibrary)
-        add(kotlinxCoroutinesCoreLibrary)
-        add(kotlinxCoroutinesAndroidLibrary)
-        add(constraintLayoutLibrary)
-        add(recycleViewLibrary)
-        add(glideLibrary)
-        add(timberLibrary)
-        add(lottieLibrary)
-        add(injectAssistedAnnotationDaggerLibrary)
-        add(hiltAndroidLibrary)
-    }
+    const val androidToolsBuildGradleLibrary = "com.android.tools.build:gradle:${Versions.gradle}"
 
-    val kaptLibraries = arrayListOf<String>().apply {
-        add(hiltKaptCompilerLibrary)
-    }
+    const val kotlinGradleGradlePluginLibrary =
+        "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_version}"
 
-    val compileOnlyLibraries = arrayListOf<String>().apply {
-        add(jetBrainsAnnotationLibrary)
-    }
+    const val apolloGradlePluginLibrary =
+        "com.apollographql.apollo:apollo-gradle-plugin:${Versions.apollo}"
 
-    val testCompileOnlyLibraries = arrayListOf<String>().apply {
-        add(jetBrainsAnnotationLibrary)
-    }
+    const val hiltAndroidGradlePluginLibrary =
+        "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt_version}"
 
-    val annotationProcessorLibraries = arrayListOf<String>().apply {
-        add(glideCompilerLibrary)
-    }
+    const val navSafeArgsGradlePluginLibrary =
+        "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.nav_version}"
 
-    val androidTestLibraries = arrayListOf<String>().apply {
-        add(androidxTestRunnerLibrary)
-        add(espressoCoreLibrary)
-        add(navigationTestingLibrary)
-    }
-
-    val testLibraries = arrayListOf<String>().apply {
-        add(junitLibrary)
-    }
 
 }
+
+object AppConfig {
+
+    const val compileSdk = 33
+    const val minSdk = 21
+    const val targetSdk = 33
+    const val versionCode = 1
+    const val versionName = "1.0"
+    const val buildToolsVersion = "31.0.0"
+    const val appId = "zisis.aristofanis.animehouse"
+
+    const val androidTestInstrumentation = "androidx.test.runner.AndroidJUnitRunner"
+    const val proguardConsumerRules = "consumer-rules.pro"
+    const val proguardDefaultFile = "proguard-android-optimize.txt"
+    const val dimension = "environment"
+
+}
+
+object ApolloConfig {
+    const val schemaFile = "../app/src/main/graphql/schema.json"
+    const val customTypeMappingKey = "Date"
+    const val customTypeMappingValue = "java.util.Date"
+
+}
+
+object Versions {
+
+    const val gradle = "7.3.0"
+    const val kotlin_version = "1.6.0"
+    const val hilt_version = "2.43.2"
+    const val nav_version = "2.5.2"
+    const val data_binding = "7.3.0"
+    const val appcompat = "1.4.1"
+    const val core_ktx = "1.9.0"
+    const val fragment = "1.5.2"
+    const val android_support_annotations = "28.0.0"
+    const val lifecycle_viewmodel_savedstate = "2.5.1"
+    const val annotation_jsr250_api = "1.0"
+    const val okhttp = "4.9.3"
+    const val apollo = "2.5.11"
+    const val coroutines = "1.6.4"
+    const val constraint_layout = "2.1.3"
+    const val recyclerview = "1.2.1"
+    const val glide = "4.12.0"
+    const val timber = "4.7.1"
+    const val lottie = "5.0.3"
+    const val jetbrains_annotation = "16.0.1"
+    const val assisted_inject_annotations_dagger = "0.8.1"
+    const val junit = "5.8.2"
+    const val android_test_runner = "1.4.0"
+    const val espresso_core = "3.4.0"
+
+}
+
+object Modules {
+
+    const val app = ":app"
+
+    const val core = ":core"
+
+    const val featureAnimeCommon = ":feature:anime-common"
+
+    const val featureAnimeList = ":feature:animes-list"
+
+    const val featureAnimeDetails = ":feature:anime-details"
+    const val coreDesignSystem = ":core:design-system"
+    const val coreNetwork = ":core:network"
+    const val coreNavigation = ":core:navigation"
+    const val coreKotlinUtils = ":core:kotlin-utils"
+    const val testCommon = "test:common"
+
+}
+

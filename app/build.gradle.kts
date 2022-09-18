@@ -1,7 +1,5 @@
 plugins {
-    id("com.apollographql.apollo")
     id("com.android.application")
-    id("dagger.hilt.android.plugin")
     id("androidx.navigation.safeargs")
     kotlin("android")
     kotlin("kapt")
@@ -45,29 +43,49 @@ android {
     }
 }
 
-hilt {
-    enableExperimentalClasspathAggregation = true
-}
+
 kapt {
     correctErrorTypes = true
 }
 
-apollo {
-    schemaFile.set(file("../app/src/main/graphql/schema.json"))
-    rootPackageName.set("zisis.aristofanis.animehouse")
-    customTypeMapping.put("Date", "java.util.Date")
-}
+
 
 dependencies {
-    //std lib
+
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    kapt(Dependencies.kaptLibraries)
+    implementation(Libs.dataBindingLibrary)
+    implementation(Libs.navigationLibrary)
+    implementation(Libs.navigationComposeLibrary)
+    implementation(Libs.navigationDynamicFeaturesLibrary)
+    implementation(Libs.navigationKTXLibrary)
+    implementation(Libs.appCompactLibrary)
+    implementation(Libs.coreKTXLibrary)
+    implementation(Libs.vmSaveStateLibrary)
+    implementation(Libs.lifecycleRuntimeKTXLibrary)
+    implementation(Libs.jsrLibrary)
+    implementation(Libs.okHttpLibrary)
+    implementation(Libs.fragmentKTXLibrary)
+    implementation(Libs.supportAnnotationLibrary)
+    implementation(Libs.kotlinxCoroutinesCoreLibrary)
+    implementation(Libs.kotlinxCoroutinesAndroidLibrary)
+    implementation(Libs.constraintLayoutLibrary)
+    implementation(Libs.recycleViewLibrary)
+    implementation(Libs.glideLibrary)
+    implementation(Libs.timberLibrary)
+    implementation(Libs.lottieLibrary)
+
+    implementation(project(Modules.coreNetwork))
+
+    //std lib
+
     //app libs
-    implementation(Dependencies.appLibraries)
-    compileOnly(Dependencies.compileOnlyLibraries)
-    testCompileOnly(Dependencies.testCompileOnlyLibraries)
-    annotationProcessor(Dependencies.annotationProcessorLibraries)
+    compileOnly(Libs.jetBrainsAnnotationLibrary)
+    annotationProcessor(Libs.glideCompilerLibrary)
     //test libs
-    testImplementation(Dependencies.testLibraries)
-    androidTestImplementation(Dependencies.androidTestLibraries)
+    testImplementation(Libs.junitLibrary)
+    androidTestImplementation(Libs.androidxTestRunnerLibrary)
+    androidTestImplementation(Libs.espressoCoreLibrary)
+    androidTestImplementation(Libs.navigationTestingLibrary)
+
+
 }

@@ -1,9 +1,8 @@
-package zisis.aristofanis.animehouse.core.data
+package zisis.aristofanis.animehouse.core.domain
 
 import com.apollographql.apollo.ApolloQueryCall
 import com.apollographql.apollo.coroutines.await
-import zisis.aristofanis.animehouse.core.domain.MalformedContractError
-import zisis.aristofanis.animehouse.core.domain.Result
+
 
 suspend fun <R> ApolloQueryCall<R>.toResult(): Result<R> {
     val response = await()

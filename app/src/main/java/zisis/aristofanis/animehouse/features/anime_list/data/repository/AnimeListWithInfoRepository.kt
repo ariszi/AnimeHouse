@@ -1,10 +1,6 @@
 package zisis.aristofanis.animehouse.features.anime_list.data.repository
 
 import com.apollographql.apollo.ApolloClient
-import zisis.aristofanis.animehouse.AnimeListQuery
-import zisis.aristofanis.animehouse.core.data.mapError
-import zisis.aristofanis.animehouse.core.data.toResult
-import zisis.aristofanis.animehouse.core.data.validateMap
 import zisis.aristofanis.animehouse.core.domain.ApolloError
 import zisis.aristofanis.animehouse.core.domain.GENERIC_ERROR_MESSAGE
 import zisis.aristofanis.animehouse.core.domain.Result

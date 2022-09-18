@@ -1,10 +1,6 @@
-package zisis.aristofanis.animehouse.core.data
+package zisis.aristofanis.animehouse.core.domain
 
 import com.apollographql.apollo.exception.ApolloException
-import zisis.aristofanis.animehouse.core.domain.ApolloError
-import zisis.aristofanis.animehouse.core.domain.GENERIC_ERROR_MESSAGE
-import zisis.aristofanis.animehouse.core.domain.Result
-import zisis.aristofanis.animehouse.core.domain.UnknownError
 
 
 fun Throwable.toError(): Result.Error {

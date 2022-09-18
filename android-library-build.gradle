@@ -5,15 +5,15 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion Android.compileSdk
-    buildToolsVersion Android.buildTools
+    compileSdkVersion AppConfig.compileSdk
+    buildToolsVersion AppConfig.buildToolsVersion
 
     defaultConfig {
-        minSdkVersion Android.minSdk
-        targetSdkVersion Android.targetSdk
-        versionCode Android.versionCode
-        versionName Android.versionName
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdkVersion AppConfig.minSdk
+        targetSdkVersion AppConfig.targetSdk
+        versionCode AppConfig.versionCode
+        versionName AppConfig.versionName
+        testInstrumentationRunner  AppConfig.androidTestInstrumentation
     }
 
     buildTypes {
@@ -30,33 +30,9 @@ android {
         jvmTarget = '1.8'
         useIR = true
     }
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion Compose.composeVersion
-        kotlinCompilerVersion Kotlin.version
-    }
     packagingOptions {
         exclude("META-INF/AL2.0")
         exclude("META-INF/LGPL2.1")
     }
 }
 
-dependencies{
-
-    implementation AndroidX.coreKtx
-    implementation AndroidX.appCompat
-    implementation AndroidX.lifecycleVmKtx
-
-    implementation Compose.activity
-    implementation Compose.ui
-    implementation Compose.material
-    implementation Compose.tooling
-    implementation Compose.navigation
-
-    implementation Google.material
-
-    implementation Hilt.android
-    kapt Hilt.compiler
-}
