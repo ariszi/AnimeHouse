@@ -1,13 +1,15 @@
 package zisis.aristofanis.animehouse.core.domain
 
-import com.apollographql.apollo.ApolloQueryCall
-import com.apollographql.apollo.coroutines.await
+import com.apollographql.apollo3.ApolloCall
+import com.apollographql.apollo3.api.Operation
+import kotlinx.coroutines.flow.firstOrNull
 
 
-suspend fun <R> ApolloQueryCall<R>.toResult(): Result<R> {
-    val response = await()
+suspend fun <R : Operation.Data> ApolloCall<R>.toResult(): Result<R> {
+
     return runCatching {
-        Result.Success(response.data ?: throw IllegalStateException("Response data is null"))
+        val response = this.toFlow().firstOrNull()
+        Result.Success(response?.data ?: throw IllegalStateException("Response data is null"))
     }.fold(
         onSuccess = { it },
         onFailure = { throwable ->

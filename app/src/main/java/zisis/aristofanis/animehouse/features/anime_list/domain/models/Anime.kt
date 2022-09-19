@@ -8,7 +8,7 @@ import java.io.Serializable
 data class Anime(
     val description: String = EMPTY,
     val episodes: Int = 0,
-    val genres: List<String>? = null,
+    val genres: List<String?>? = null,
     val id: Int = 0,
     val status: Status = UNKNOWN,
     val averageScore: String = TWO_UPPER_DASHES,

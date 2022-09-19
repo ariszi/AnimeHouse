@@ -10,7 +10,6 @@ buildscript {
     dependencies {
         classpath(Libs.androidToolsBuildGradleLibrary)
         classpath(Libs.kotlinGradleGradlePluginLibrary)
-        classpath(Libs.apolloGradlePluginLibrary)
         classpath(Libs.hiltAndroidGradlePluginLibrary)
         classpath(Libs.navSafeArgsGradlePluginLibrary)
         // NOTE: Do not place your application dependencies here; they belong

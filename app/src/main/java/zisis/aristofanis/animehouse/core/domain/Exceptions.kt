@@ -1,6 +1,6 @@
 package zisis.aristofanis.animehouse.core.domain
 
-import com.apollographql.apollo.exception.ApolloException
+import com.apollographql.apollo3.exception.ApolloException
 
 
 fun Throwable.toError(): Result.Error {

@@ -6,6 +6,7 @@
       <module name="Anime_House.buildSrc" target="11" />
       <module name="Anime_House.buildSrc.main" target="11" />
       <module name="Anime_House.buildSrc.test" target="11" />
+      <module name="Anime_House.core.apollo" target="11" />
       <module name="Anime_House.core.kotlin-utils" target="11" />
       <module name="Anime_House.core.kotlin-utils.main" target="11" />
       <module name="Anime_House.core.kotlin-utils.test" target="11" />

@@ -1,6 +1,7 @@
 package com.example.core
 
-import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.network.okHttpClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,7 +12,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class RestProvider  {
+class RestProvider {
 
     private val BASE_URL = "https://graphql.anilist.co/graphql"
 

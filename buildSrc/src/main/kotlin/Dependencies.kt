@@ -26,13 +26,19 @@ object Libs {
         "com.squareup.okhttp3:logging-interceptor:${Versions.okhttp}"
 
     const val apolloRuntimeLibrary =
-        "com.apollographql.apollo:apollo-runtime:${Versions.apollo}"
+        "com.apollographql.apollo3:apollo-runtime:${Versions.apollo}"
 
     const val apolloAndroidSupportLibrary =
-        "com.apollographql.apollo:apollo-android-support:${Versions.apollo}"
+        "com.apollographql.apollo3:apollo-android-support:${Versions.apollo}"
 
     const val apolloCoroutinesSupportLibrary =
-        "com.apollographql.apollo:apollo-coroutines-support:${Versions.apollo}"
+        "com.apollographql.apollo3:apollo-coroutines-support:${Versions.apollo}"
+
+    const val apolloCacheSupportLibrary =
+        "com.apollographql.apollo3:apollo-normalized-cache-sqlite:${Versions.apollo}"
+
+    const val apolloApiLibrary =
+        "com.apollographql.apollo3:apollo-api:${Versions.apollo}"
 
     const val kotlinxCoroutinesCoreLibrary =
         "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines}"
@@ -98,7 +104,7 @@ object Libs {
         "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_version}"
 
     const val apolloGradlePluginLibrary =
-        "com.apollographql.apollo:apollo-gradle-plugin:${Versions.apollo}"
+        "com.apollographql.apollo3:apollo-gradle-plugin:${Versions.apollo}"
 
     const val hiltAndroidGradlePluginLibrary =
         "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt_version}"
@@ -127,7 +133,7 @@ object AppConfig {
 }
 
 object ApolloConfig {
-    const val schemaFile = "../app/src/main/graphql/schema.json"
+    const val schemaFile = "../apollo/src/main/graphql/schema.json"
     const val customTypeMappingKey = "Date"
     const val customTypeMappingValue = "java.util.Date"
 
@@ -147,7 +153,7 @@ object Versions {
     const val lifecycle_viewmodel_savedstate = "2.5.1"
     const val annotation_jsr250_api = "1.0"
     const val okhttp = "4.9.3"
-    const val apollo = "2.5.11"
+    const val apollo = "3.6.0"
     const val coroutines = "1.6.4"
     const val constraint_layout = "2.1.3"
     const val recyclerview = "1.2.1"
@@ -175,6 +181,7 @@ object Modules {
     const val featureAnimeDetails = ":feature:anime-details"
     const val coreDesignSystem = ":core:design-system"
     const val coreNetwork = ":core:network"
+    const val coreApollo = ":core:apollo"
     const val coreNavigation = ":core:navigation"
     const val coreKotlinUtils = ":core:kotlin-utils"
     const val testCommon = "test:common"

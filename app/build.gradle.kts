@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("androidx.navigation.safeargs")
+    id("dagger.hilt.android.plugin")
     kotlin("android")
     kotlin("kapt")
 
@@ -49,10 +50,17 @@ kapt {
 }
 
 
+hilt {
+    enableExperimentalClasspathAggregation = true
+}
+
 
 dependencies {
 
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
+    implementation(Libs.hiltAndroidLibrary)
+    implementation(Libs.injectAssistedAnnotationDaggerLibrary)
+    kapt(Libs.hiltKaptCompilerLibrary)
     implementation(Libs.dataBindingLibrary)
     implementation(Libs.navigationLibrary)
     implementation(Libs.navigationComposeLibrary)
@@ -74,7 +82,8 @@ dependencies {
     implementation(Libs.timberLibrary)
     implementation(Libs.lottieLibrary)
 
-    implementation(project(Modules.coreNetwork))
+
+    api(project(Modules.coreNetwork))
 
     //std lib
 

@@ -1,6 +1,6 @@
 package zisis.aristofanis.animehouse.features.anime_list.domain.di
 
-import com.apollographql.apollo.ApolloClient
+import com.apollographql.apollo3.ApolloClient
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
