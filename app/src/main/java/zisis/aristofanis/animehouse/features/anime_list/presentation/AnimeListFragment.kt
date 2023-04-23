@@ -59,9 +59,9 @@ class AnimeListFragment : BaseFragment(R.layout.fragment_anime_list) {
     }
 
     private fun navigateToAnimeDetails(anime: Anime) {
-        val action =
-            AnimeListFragmentDirections.actionAnimeListFragmentToAnimeDetailsFragment(anime)
-        this.findNavController().navigate(action)
+//        val action =
+//            AnimeListFragmentDirections.actionAnimeListFragmentToAnimeDetailsFragment(anime)
+//        this.findNavController().navigate(action)
     }
 
     private fun applyState(state: AnimeListContract.AnimesState) {

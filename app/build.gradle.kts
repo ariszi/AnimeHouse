@@ -1,100 +1,48 @@
 plugins {
-    id("com.android.application")
-    id("androidx.navigation.safeargs")
-    id("dagger.hilt.android.plugin")
-    kotlin("android")
-    kotlin("kapt")
-
+    id("anime.house.android.application")
+    id("anime.house.di")
 }
 
-
 android {
-
-    compileSdk = AppConfig.compileSdk
-    buildToolsVersion = AppConfig.buildToolsVersion
+    namespace = "zisis.aristofanis.animehouse"
+    compileSdk = 33
 
     defaultConfig {
         applicationId = "zisis.aristofanis.animehouse"
-        minSdk = AppConfig.minSdk
-        targetSdk = AppConfig.targetSdk
-        versionCode = AppConfig.versionCode
-        versionName = AppConfig.versionName
-
-        testInstrumentationRunner = AppConfig.androidTestInstrumentation
     }
 
-    kotlinOptions {
-        jvmTarget = "1.8"
-    }
     buildFeatures {
         viewBinding = true
     }
+
     buildTypes {
         getByName("release") {
             isMinifyEnabled = false
             proguardFiles(
-                getDefaultProguardFile(AppConfig.proguardDefaultFile),
-                AppConfig.proguardConsumerRules
+                "proguard-android-optimize.txt", "proguard-rules.pro"
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+    packagingOptions {
+        resources.excludes.add("META-INF/**")
+        resources.excludes.add("**/attach_hotspot_windows.dll")
     }
 }
 
-
-kapt {
-    correctErrorTypes = true
-}
-
-
-hilt {
-    enableExperimentalClasspathAggregation = true
-}
-
-
 dependencies {
 
-    implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar"))))
-    implementation(Libs.hiltAndroidLibrary)
-    implementation(Libs.injectAssistedAnnotationDaggerLibrary)
-    kapt(Libs.hiltKaptCompilerLibrary)
-    implementation(Libs.dataBindingLibrary)
-    implementation(Libs.navigationLibrary)
-    implementation(Libs.navigationComposeLibrary)
-    implementation(Libs.navigationDynamicFeaturesLibrary)
-    implementation(Libs.navigationKTXLibrary)
-    implementation(Libs.appCompactLibrary)
-    implementation(Libs.coreKTXLibrary)
-    implementation(Libs.vmSaveStateLibrary)
-    implementation(Libs.lifecycleRuntimeKTXLibrary)
-    implementation(Libs.jsrLibrary)
-    implementation(Libs.okHttpLibrary)
-    implementation(Libs.fragmentKTXLibrary)
-    implementation(Libs.supportAnnotationLibrary)
-    implementation(Libs.kotlinxCoroutinesCoreLibrary)
-    implementation(Libs.kotlinxCoroutinesAndroidLibrary)
-    implementation(Libs.constraintLayoutLibrary)
-    implementation(Libs.recycleViewLibrary)
-    implementation(Libs.glideLibrary)
-    implementation(Libs.timberLibrary)
-    implementation(Libs.lottieLibrary)
-
-
-    api(project(Modules.coreNetwork))
-
-    //std lib
-
-    //app libs
-    compileOnly(Libs.jetBrainsAnnotationLibrary)
-    annotationProcessor(Libs.glideCompilerLibrary)
-    //test libs
-    testImplementation(Libs.junitLibrary)
-    androidTestImplementation(Libs.androidxTestRunnerLibrary)
-    androidTestImplementation(Libs.espressoCoreLibrary)
-    androidTestImplementation(Libs.navigationTestingLibrary)
-
+    implementation(libs.app.compat)
+    implementation(libs.core.ktx)
+    implementation(libs.saved.state)
+    implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.constraint.layout)
+    implementation(libs.lottie)
+    implementation(libs.apollo.runtime)
+    implementation(libs.glide)
+    implementation(libs.recycler.view)
+    implementation(libs.navigation.fragment.ktx)
+    implementation(libs.navigation.ui)
+    implementation(libs.hilt.navigation)
+    implementation(project(":network"))
 
 }

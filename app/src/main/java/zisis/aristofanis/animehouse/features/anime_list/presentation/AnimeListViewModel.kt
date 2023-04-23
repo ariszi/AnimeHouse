@@ -83,6 +83,8 @@ class AnimeListViewModel @Inject constructor(
             is AnimeListContract.AnimesEvent.AcknowledgeNavigation -> {
                 acknowledgeNavigation()
             }
+
+            AnimeListContract.AnimesEvent.ErrorShown -> TODO()
         }
     }
 

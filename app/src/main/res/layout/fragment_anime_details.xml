@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_url="https://assets4.lottiefiles.com/packages/lf20_kJNwM4.json" />
+            app:lottie_url="https://assets3.lottiefiles.com/packages/lf20_p8bfn5to.json" />
 
         <ImageView
             android:id="@+id/anime_image"

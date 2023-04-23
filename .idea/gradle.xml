@@ -4,25 +4,34 @@
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
+        <compositeConfiguration>
+          <compositeBuild compositeDefinitionSource="SCRIPT">
+            <builds>
+              <build path="$PROJECT_DIR$/build-conventions" name="build-conventions">
+                <projects>
+                  <project path="$PROJECT_DIR$/build-conventions" />
+                </projects>
+              </build>
+            </builds>
+          </compositeBuild>
+        </compositeConfiguration>
         <option name="testRunner" value="GRADLE" />
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="11" />
+        <option name="gradleJvm" value="Android Studio default JDK" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/buildSrc" />
-            <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/core/apollo" />
-            <option value="$PROJECT_DIR$/core/design-system" />
-            <option value="$PROJECT_DIR$/core/kotlin-utils" />
-            <option value="$PROJECT_DIR$/core/navigation" />
-            <option value="$PROJECT_DIR$/core/network" />
+            <option value="$PROJECT_DIR$/build-conventions" />
+            <option value="$PROJECT_DIR$/design-system" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/anime-common" />
             <option value="$PROJECT_DIR$/feature/anime-details" />
             <option value="$PROJECT_DIR$/feature/animes-list" />
+            <option value="$PROJECT_DIR$/kotlin-utils" />
+            <option value="$PROJECT_DIR$/navigation" />
+            <option value="$PROJECT_DIR$/network" />
             <option value="$PROJECT_DIR$/test" />
             <option value="$PROJECT_DIR$/test/common" />
           </set>

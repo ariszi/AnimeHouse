@@ -1,3 +1,20 @@
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+pluginManagement {
+    includeBuild("build-conventions")
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+    }
+}
+
 include(":app")
 rootProject.name="Anime House"
 
@@ -6,10 +23,9 @@ include(":feature:anime-common")
 include(":feature:animes-list")
 include(":feature:anime-details")
 // Core
-include(":core:design-system")
-include(":core:network")
-include(":core:apollo")
-include(":core:navigation")
-include(":core:kotlin-utils")
+include(":design-system")
+include(":network")
+include(":navigation")
+include(":kotlin-utils")
 // Testing
 include("test:common")

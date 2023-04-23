@@ -67,6 +67,7 @@ class AnimeDetailsViewModel @Inject constructor(
         when (event) {
             is AnimeDetailsContract.Event.BackPressed -> navigation.update { true }
             is AnimeDetailsContract.Event.AcknowledgeNavigation -> navigation.update { false }
+            is AnimeDetailsContract.Event.AnimeDetails -> Unit
         }
     }
 

@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8">
-      <module name="Anime_House.app" target="11" />
-      <module name="Anime_House.buildSrc" target="11" />
-      <module name="Anime_House.buildSrc.main" target="11" />
-      <module name="Anime_House.buildSrc.test" target="11" />
-      <module name="Anime_House.core.apollo" target="11" />
-      <module name="Anime_House.core.kotlin-utils" target="11" />
-      <module name="Anime_House.core.kotlin-utils.main" target="11" />
-      <module name="Anime_House.core.kotlin-utils.test" target="11" />
-      <module name="Anime_House.core.network" target="11" />
+    <bytecodeTargetLevel target="17">
+      <module name="Anime_House.buildSrc" target="17" />
+      <module name="Anime_House.buildSrc.main" target="17" />
+      <module name="Anime_House.buildSrc.test" target="17" />
+      <module name="Anime_House.core.apollo" target="17" />
+      <module name="Anime_House.core.kotlin-utils" target="17" />
+      <module name="Anime_House.core.kotlin-utils.main" target="17" />
+      <module name="Anime_House.core.kotlin-utils.test" target="17" />
+      <module name="Anime_House.core.network" target="17" />
       <module name="Anime_House.core.network.main" target="11" />
       <module name="Anime_House.core.network.test" target="11" />
       <module name="AnimeHouse.app" target="11" />
